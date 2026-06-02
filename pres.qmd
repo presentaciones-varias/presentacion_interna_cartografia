@@ -1,0 +1,374 @@
+---
+# title: "Identificación de falseamiento ENUSC"
+# author: "Marzo 2024"
+format:
+  revealjs:
+    auto-stretch: false
+    margin: 0
+    slide-number: true
+    scrollable: true
+    preview-links: auto
+    logo: imagenes/logo_portada2.png
+    css: ine_quarto_styles.css
+    # footer: <https://quarto.org>
+---
+
+#
+
+[]{.linea-superior} 
+[]{.linea-inferior} 
+
+<!---
+ <img src="imagenes/logo_portada2.png" style="width: 20%"/>  
+--->
+
+<img src="imagenes/logo_portada2.png" width="20%"/>  
+
+
+[**Deep Learning para Detección de Cambios en Cartografía**]{.big-par .center-justified}
+[**Ciencia de Datos**]{.medium-par.center-justified}
+
+[**Junio 2026**]{.big-par .center-justified}   
+
+
+## [Contenidos]{.big-par}  
+
+<!-- ::: {.incremental} -->
+
+- Motivación
+
+- Detección de Cambios
+
+  - Dentro del LUC (in-LUC)
+
+  - *Fuera del LUC (out-LUC)*
+
+- Detección en Zonas de Cambio
+
+  - Edificaciones (*buildings*)
+
+  - Calles y caminos (*roads*)
+
+- Ejemplos in-LUC
+
+  - Cluster 12 (crecimiento nuevo sostenido)
+
+  - Cluster 6 (crecimiento nuevo reciente)
+
+  - Cluster 2 (crecimiento nuevo reciente)
+
+- *Ejemplos out-LUC*
+
+  - ...
+
+## [Motivación]{.big-par}
+
+
+
+## [Detección de Cambios]{.big-par}
+
+<!-- ::: {.center}
+![](imagenes/data/reg_08_01.png){width="100%"}
+::: -->
+
+<!-- ::: {.incremental .small-par}
+![](imagenes/data/reg_08_01.png){width="100%"}
+![](imagenes/data/reg_08_02.png){width="100%"}
+::: -->
+
+::: {.r-stack fragment-index=2 .center}
+
+![](imagenes/data/reg_08_01.png){.fragment .fade-in-then-out width="100%"}
+
+![](imagenes/data/reg_08_02.png){.fragment .fade-in-then-out width="100%"}
+
+![](imagenes/data/reg_08_03.png){.fragment .fade-in-then-out width="100%"}
+
+![](imagenes/data/reg_08_04.png){.fragment .fade-in-then-out width="100%"}
+
+![](imagenes/data/reg_08_05.png){.fragment .fade-in-then-out width="100%"}
+
+![](imagenes/data/reg_08_06.png){.fragment .fade-in-then-out width="100%"}
+
+
+:::
+
+
+
+## [Detección en Zonas de Cambio | Edificaciones (*buildings*)]{.big-par}
+
+::: {.r-stack fragment-index=2 .center}
+
+![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_building__confidence_0_1.png){.fragment .fade-in-then-out width="90%"}
+
+![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_building__confidence_0_1__segmented_polygons.png){.fragment .fade-in-then-out width="90%"}
+
+![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_building__confidence_0_1__segmented_polygons_filtered.png){.fragment .fade-in-then-out width="90%"}
+
+![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_building__confidence_0_1__counts_coverage.png){.fragment .fade-in-then-out width="90%"}
+
+:::
+
+
+
+## [Detección en Zonas de Cambio | Calles y caminos (*roads*)]{.big-par}
+
+::: {.r-stack fragment-index=2 .center}
+
+![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_road__confidence_0_15.png){.fragment .fade-in-then-out width="90%"}
+
+![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_road__confidence_0_15__segmented_polygons.png){.fragment .fade-in-then-out width="90%"}
+
+![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_road__confidence_0_15__segmented_polygons_filtered.png){.fragment .fade-in-then-out width="90%"}
+
+![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_road__confidence_0_15__counts_coverage.png){.fragment .fade-in-then-out width="90%"}
+
+:::
+
+
+
+## [Detección en Zonas de Cambio | Edificaciones (*buildings*)]{.big-par}
+
+::: {.r-stack fragment-index=2 .center}
+
+![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_building__confidence_0_1__segmented_polygons_filtered.png){.fragment .fade-in-then-out width="90%"}
+
+![](imagenes/data/cluster_12/P67536523705__20250221T0000__prompt_building__confidence_0_1__segmented_polygons_filtered.png){.fragment .fade-in-then-out width="90%"}
+
+:::
+
+
+
+## [Ejs. in-LUC | Cluster 12 (crec sostenido) | Edificaciones]{.big-par}
+
+::: {.r-stack fragment-index=2 .center}
+
+:::: {.fragment}
+![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_building__confidence_0_1__segmented_polygons_filtered.png){width="70%"}
+![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_building__confidence_0_1__counts_coverage.png){width="70%"}
+::::
+
+:::: {.fragment}
+![](imagenes/data/cluster_12/P67536523705__20250221T0000__prompt_building__confidence_0_1__segmented_polygons_filtered.png){width="70%"}
+![](imagenes/data/cluster_12/P67536523705__20250221T0000__prompt_building__confidence_0_1__counts_coverage.png){width="70%"}
+::::
+
+:::
+
+
+## [Ejs. in-LUC | Cluster 06 (crec sostenido) | Edificaciones]{.big-par}
+
+::: {.r-stack fragment-index=2 .center}
+
+::: {.fragment}
+![](imagenes/data/cluster_06/P67536475341__20230416T0000__prompt_building__confidence_0_15__segmented_polygons_filtered.png){width="70%"}
+![](imagenes/data/cluster_06/P67536475341__20230416T0000__prompt_building__confidence_0_15__counts_coverage.png){width="70%"}
+:::
+
+::: {.fragment}
+![](imagenes/data/cluster_06/P67536475341__20240309T0000__prompt_building__confidence_0_15__segmented_polygons.png){width="70%"}
+![](imagenes/data/cluster_06/P67536475341__20240309T0000__prompt_building__confidence_0_15__counts_coverage.png){width="70%"}
+:::
+
+:::: {.fragment}
+![](imagenes/data/cluster_06/P67536475341__20241210T0000__prompt_building__confidence_0_15__segmented_polygons_filtered.png){width="70%"}
+![](imagenes/data/cluster_06/P67536475341__20241210T0000__prompt_building__confidence_0_15__counts_coverage.png){width="70%"}
+::::
+
+:::: {.fragment}
+![](imagenes/data/cluster_06/P67536475341__20250221T0000__prompt_building__confidence_0_15__segmented_polygons_filtered.png){width="70%"}
+![](imagenes/data/cluster_06/P67536475341__20250221T0000__prompt_building__confidence_0_15__counts_coverage.png){width="70%"}
+::::
+
+:::
+
+
+## [Ejs. in-LUC | Cluster 02 (crec reciente) | Edificaciones]{.big-par}
+
+::: {.r-stack fragment-index=2 .center}
+
+:::: {.fragment}
+![](imagenes/data/cluster_02/P67536771244__20230416T0000__prompt_building__confidence_0_15__segmented_polygons_filtered.png){width="70%"}
+![](imagenes/data/cluster_02/P67536771244__20230416T0000__prompt_building__confidence_0_15__counts_coverage.png){width="70%"}
+::::
+
+:::: {.fragment}
+![](imagenes/data/cluster_02/P67536771244__20240309T0000__prompt_building__confidence_0_15__segmented_polygons_filtered.png){width="70%"}
+![](imagenes/data/cluster_02/P67536771244__20240309T0000__prompt_building__confidence_0_15__counts_coverage.png){width="70%"}
+::::
+
+:::: {.fragment}
+![](imagenes/data/cluster_02/P67536771244__20241210T0000__prompt_building__confidence_0_15__segmented_polygons_filtered.png){width="70%"}
+![](imagenes/data/cluster_02/P67536771244__20241210T0000__prompt_building__confidence_0_15__counts_coverage.png){width="70%"}
+::::
+
+:::: {.fragment}
+![](imagenes/data/cluster_02/P67536771244__20250221T0000__prompt_building__confidence_0_15__segmented_polygons_filtered.png){width="70%"}
+![](imagenes/data/cluster_02/P67536771244__20250221T0000__prompt_building__confidence_0_15__counts_coverage.png){width="70%"}
+::::
+
+:::
+
+
+
+## [Ejs. in-LUC | Cluster 03 (pérdida) | Edificaciones]{.big-par}
+
+::: {.r-stack fragment-index=2 .center}
+
+:::: {.fragment}
+![](imagenes/data/cluster_03_perd/P67536747320__20230416T0000__prompt_building__confidence_0_15__segmented_polygons_filtered.png){width="70%"}
+![](imagenes/data/cluster_03_perd/P67536747320__20230416T0000__prompt_building__confidence_0_15__counts_coverage.png){width="70%"}
+::::
+
+:::: {.fragment}
+![](imagenes/data/cluster_03_perd/P67536747320__20240309T0000__prompt_building__confidence_0_15__segmented_polygons_filtered.png){width="70%"}
+![](imagenes/data/cluster_03_perd/P67536747320__20240309T0000__prompt_building__confidence_0_15__counts_coverage.png){width="70%"}
+::::
+
+:::: {.fragment}
+![](imagenes/data/cluster_03_perd/P67536747320__20241210T0000__prompt_building__confidence_0_15__segmented_polygons_filtered.png){width="70%"}
+![](imagenes/data/cluster_03_perd/P67536747320__20241210T0000__prompt_building__confidence_0_15__counts_coverage.png){width="70%"}
+::::
+
+:::: {.fragment}
+![](imagenes/data/cluster_03_perd/P67536747320__20250221T0000__prompt_building__confidence_0_15__segmented_polygons_filtered.png){width="70%"}
+![](imagenes/data/cluster_03_perd/P67536747320__20250221T0000__prompt_building__confidence_0_15__counts_coverage.png){width="70%"}
+::::
+
+:::
+
+
+
+## [Ejs. in-LUC | Cluster 12 (crec sostenido) | Calles y caminos]{.big-par}
+
+::: {.r-stack fragment-index=2 .center}
+
+:::: {.fragment}
+![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_road__confidence_0_15__segmented_polygons_filtered.png){width="70%"}
+![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_road__confidence_0_15__counts_coverage.png){width="70%"}
+::::
+
+:::: {.fragment}
+![](imagenes/data/cluster_12/P67536523705__20250221T0000__prompt_road__confidence_0_15__segmented_polygons_filtered.png){width="70%"}
+![](imagenes/data/cluster_12/P67536523705__20250221T0000__prompt_road__confidence_0_15__counts_coverage.png){width="70%"}
+::::
+
+:::
+
+
+## [Ejs. in-LUC | Cluster 06 (crec sostenido) | Calles y caminos]{.big-par}
+
+::: {.r-stack fragment-index=2 .center}
+
+::: {.fragment}
+![](imagenes/data/cluster_06/P67536475341__20230416T0000__prompt_road__confidence_0_15__segmented_polygons_filtered.png){width="70%"}
+![](imagenes/data/cluster_06/P67536475341__20230416T0000__prompt_road__confidence_0_15__counts_coverage.png){width="70%"}
+:::
+
+::: {.fragment}
+![](imagenes/data/cluster_06/P67536475341__20240309T0000__prompt_road__confidence_0_15__segmented_polygons_filtered.png){width="70%"}
+![](imagenes/data/cluster_06/P67536475341__20240309T0000__prompt_road__confidence_0_15__counts_coverage.png){width="70%"}
+:::
+
+:::: {.fragment}
+![](imagenes/data/cluster_06/P67536475341__20241210T0000__prompt_road__confidence_0_15__segmented_polygons_filtered.png){width="70%"}
+![](imagenes/data/cluster_06/P67536475341__20241210T0000__prompt_road__confidence_0_15__counts_coverage.png){width="70%"}
+::::
+
+:::: {.fragment}
+![](imagenes/data/cluster_06/P67536475341__20250221T0000__prompt_road__confidence_0_15__segmented_polygons_filtered.png){width="70%"}
+![](imagenes/data/cluster_06/P67536475341__20250221T0000__prompt_road__confidence_0_15__counts_coverage.png){width="70%"}
+::::
+
+:::
+
+
+## [Ejs. in-LUC | Cluster 02 (crec reciente) | Calles y caminos]{.big-par}
+
+::: {.r-stack fragment-index=2 .center}
+
+:::: {.fragment}
+![](imagenes/data/cluster_02/P67536771244__20230416T0000__prompt_road__confidence_0_15__segmented_polygons_filtered.png){width="70%"}
+![](imagenes/data/cluster_02/P67536771244__20230416T0000__prompt_road__confidence_0_15__counts_coverage.png){width="70%"}
+::::
+
+:::: {.fragment}
+![](imagenes/data/cluster_02/P67536771244__20240309T0000__prompt_road__confidence_0_15__segmented_polygons_filtered.png){width="70%"}
+![](imagenes/data/cluster_02/P67536771244__20240309T0000__prompt_road__confidence_0_15__counts_coverage.png){width="70%"}
+::::
+
+:::: {.fragment}
+![](imagenes/data/cluster_02/P67536771244__20241210T0000__prompt_road__confidence_0_15__segmented_polygons_filtered.png){width="70%"}
+![](imagenes/data/cluster_02/P67536771244__20241210T0000__prompt_road__confidence_0_15__counts_coverage.png){width="70%"}
+::::
+
+:::: {.fragment}
+![](imagenes/data/cluster_02/P67536771244__20250221T0000__prompt_road__confidence_0_15__segmented_polygons_filtered.png){width="70%"}
+![](imagenes/data/cluster_02/P67536771244__20250221T0000__prompt_road__confidence_0_15__counts_coverage.png){width="70%"}
+::::
+
+:::
+
+
+
+## [Ejs. in-LUC | Cluster 03 (pérdida) | Calles y caminos]{.big-par}
+
+::: {.r-stack fragment-index=2 .center}
+
+:::: {.fragment}
+![](imagenes/data/cluster_03_perd/P67536747320__20230416T0000__prompt_road__confidence_0_15__segmented_polygons_filtered.png){width="70%"}
+![](imagenes/data/cluster_03_perd/P67536747320__20230416T0000__prompt_road__confidence_0_15__counts_coverage.png){width="70%"}
+::::
+
+:::: {.fragment}
+![](imagenes/data/cluster_03_perd/P67536747320__20240309T0000__prompt_road__confidence_0_15__segmented_polygons_filtered.png){width="70%"}
+![](imagenes/data/cluster_03_perd/P67536747320__20240309T0000__prompt_road__confidence_0_15__counts_coverage.png){width="70%"}
+::::
+
+:::: {.fragment}
+![](imagenes/data/cluster_03_perd/P67536747320__20241210T0000__prompt_road__confidence_0_15__segmented_polygons_filtered.png){width="70%"}
+![](imagenes/data/cluster_03_perd/P67536747320__20241210T0000__prompt_road__confidence_0_15__counts_coverage.png){width="70%"}
+::::
+
+:::: {.fragment}
+![](imagenes/data/cluster_03_perd/P67536747320__20250221T0000__prompt_road__confidence_0_15__segmented_polygons_filtered.png){width="70%"}
+![](imagenes/data/cluster_03_perd/P67536747320__20250221T0000__prompt_road__confidence_0_15__counts_coverage.png){width="70%"}
+::::
+
+:::
+
+
+
+<!-- ## [Ejemplos dentro del LUC | Cluster 12 | Edificaciones (*buildings*)]{.big-par}
+
+
+:::: {.columns}
+
+::: {.column width="45%"}
+[<img src="imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_building__confidence_0_1__segmented_polygons_filtered.png" width="100%"/>]{.center} 
+[<img src="imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_building__confidence_0_1__counts_coverage.png" width="100%"/>]{.center} 
+:::
+
+::: {.column width="45%"}
+[<img src="imagenes/data/cluster_12/P67536523705__20250221T0000__prompt_building__confidence_0_1__segmented_polygons_filtered.png" width="100%"/>]{.center} 
+[<img src="imagenes/data/cluster_12/P67536523705__20250221T0000__prompt_building__confidence_0_1__counts_coverage.png" width="100%"/>]{.center} 
+:::
+
+:::: -->
+
+
+#
+
+[<img src="imagenes/logo_portada2.png" width="20%"/>]{.center}
+
+[**Deep Learning para Detección de Cambios en Cartografía**]{.big-par .center-justified}
+[**Ciencia de Datos**]{.medium-par.center-justified}
+
+[**Junio 2026**]{.big-par .center-justified}
+
+
+[]{.linea-superior} 
+[]{.linea-inferior} 
+
+
+
