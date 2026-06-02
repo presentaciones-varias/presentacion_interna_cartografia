@@ -127,7 +127,7 @@ format:
 
 
 
-## [Detección en Zonas de Cambio | Edificaciones (*buildings*)]{.big-par}
+<!-- ## [Detección en Zonas de Cambio | Edificaciones (*buildings*)]{.big-par}
 
 ::: {.r-stack fragment-index=2 .center}
 
@@ -135,7 +135,7 @@ format:
 
 ![](imagenes/data/cluster_12/P67536523705__20250221T0000__prompt_building__confidence_0_1__segmented_polygons_filtered.png){.fragment .fade-in-then-out width="90%"}
 
-:::
+::: -->
 
 
 
