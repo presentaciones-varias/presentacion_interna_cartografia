@@ -25,7 +25,7 @@ format:
 <img src="imagenes/logo_portada2.png" width="20%"/>  
 
 
-[**Deep Learning para Detección de Cambios en Cartografía**]{.big-par .center-justified}
+[**Flujo Automático para la Detección de Cambios en Cartografía INE**]{.big-par .center-justified}
 [**Ciencia de Datos**]{.medium-par.center-justified}
 
 [**Junio 2026**]{.big-par .center-justified}   
@@ -34,6 +34,8 @@ format:
 ## [Contenidos]{.big-par}  
 
 <!-- ::: {.incremental} -->
+
+::: {.medium-par}
 
 - Motivación
 
@@ -63,14 +65,17 @@ format:
 
   - ...
 
+:::
+
 
 
 ## [Motivación]{.big-par}
 
 ::: {.incremental .medium-par}
-- Aprovechar el estado del arte en modelos deep learning y de detección + segmentación de objetos para su aplicación en imágenes satelitales.
-- Avanzar hacia una actualización asistida (~automática) de la actualización planimétrica de la cartografía INE (Desafío público ANID 2022).
-  - Con un uso eficiente de recursos humanos y disminución en costos de producción. 
+- Avanzar hacia una detección automática de cambios en la cartografía INE.
+  - Contexto: actualización planimétrica de la cartografía INE (Desafío público ANID 2022).
+  - Uso eficiente de recursos humanos y disminución en costos de producción para la institución. 
+- Hacer uso del estado del arte en visión computacional, modelos deep learning y de detección + segmentación de objetos y de su aplicabilidad en imágenes satelitales.
 :::
 
 . . .
@@ -90,6 +95,21 @@ format:
 :::
 
 ::::
+
+
+
+## [Motivación]{.big-par}
+
+::: {.incremental .medium-par}
+- Flujo propuesto: Detección de Cambios + Detección en Zonas de Cambio
+- Detección de Cambios: basado en dataset de Uso y Cobertura de Suelo (Dynamic World V1).
+  - Detectar áreas que han sufrido cambios en zonas urbanas en la cartografía INE.
+  - Clasificar cambios detectados en diversos fenómenos. Ej: crecimiento sostenido, decrecimiento, etc.
+- Detección en Zonas de Cambio: zoom en áreas de cambios detectados en etapa anterior.
+  - Aplicar un modelo de detectión y segmentación de objetos (SAM3) para detectar infraestructura relevante para la actualización de la cartografía INE.
+  - Georeferenciar infraestructura detectada (edificaciones y calles / caminos), como insumo para la actualización de la cartografía INE. 
+:::
+
 
 
 ## [Detección de Cambios]{.big-par}
@@ -122,39 +142,124 @@ format:
 
 
 
-## [Detección en Zonas de Cambio | Flujo general]{.big-par}
+## [Detección en Zonas de Cambio | Grilla rHEALPix]{.big-par}
 
 ::: {.incremental .medium-par}
 - Detección de grilla rHEALPix.
-  - ...
-- Detección de edificaciones (buildings).
-  - ...
-- Detección de calles y caminos (roads).
-  - ...
+  - **detect_cells**: se encuentran líneas rojas de grilla en la imagen y se agrupan detecciones ~duplicadas. Retorna celdas como rectángulos en coordinadas de píxel. 
+  - **correct_cells**: revisa que lados de celdas candidatas estén cubiertos por píxeles rojos. Luego subdivide celdas que han sido unidas incorrectamente.
+  - **detect_anchor_cell**: identifica índice de celda central marcada en mapa, con código conocido.
+  - **map_cells_to_rhealpix**: utiliza información de celda central como referencia para mapear celdas detectadas a grilla rHEALPix real.
 :::
-
-
-
-## [Detección en Zonas de Cambio | Grilla rHEALPix]{.big-par}
-
-<!-- ::: {.center}
-![](imagenes/data/cluster_12/P67536523705__20250221T0000__prompt_building__confidence_0_1__detected_anchor_cell.png){.fragment .fade-in-then-out width="85%"}
-::: -->
 
 ::: {.r-stack fragment-index=2 .center}
 
 :::: {.fragment}
 ![](imagenes/data/cluster_12/P67536523705__20250221T0000__prompt_building__confidence_0_1__detected_anchor_cell.png){width="85%"}
-![](imagenes/data/cluster_12/P67536523705__20250221T0000__prompt_building__confidence_0_1__cell_codes.png){width="70%"}
+![](imagenes/data/cluster_12/P67536523705__20250221T0000__prompt_building__confidence_0_1__cell_codes.png){width="60%"}
 ::::
 
 :::
 
 
+
+<!-- ## [Detección en Zonas de Cambio | Flujo general]{.big-par}
+
+::: {.incremental .medium-par}
+- Detección de grilla rHEALPix.
+  - Finds the red grid lines drawn on the satellite image (by Google Earth) and
+  uses them to divide the image into a regular grid of rectangular cells. It
+  detects the lines with a standard computer-vision algorithm (Hough transform),
+  groups near-duplicate detections, and returns the list of cell rectangles in
+  pixel coordinates. (detect_cells): 
+  -  Cleans up the raw grid produced by detect_cells. It runs two filters: first it
+  checks that all four edges of each candidate cell are actually covered by red
+  pixels (dropping border fragments that only have one or two sides); then it
+  removes anomalously thin slivers. Finally it splits any cells that are
+  suspiciously wide — a sign that a faint grid line was missed and two cells were
+  merged into one. (correct_cells):
+  - Identifies which cell in the grid corresponds to the location pin. It does this
+  using the companion __01 image that shows the white Google Earth popup
+  balloon: it detects the white shape, finds the tip of its arrow, and returns
+  the index of the grid cell that contains that point.(detect_anchor_cell):
+  - Translates pixel coordinates into real geographic cell codes. It uses the
+  anchor cell (whose code is known from the filename) as a reference point,
+  computes the relative row/column offset of every other cell in the pixel grid,
+  and looks up the matching code in the rhealpix parquet file. The result is a
+  table that links each detected image cell to its geographic identity (map_cells_to_rhealpix):
+- Detección de edificaciones (buildings).
+  - ...
+- Detección de calles y caminos (roads).
+  - ...
+::: -->
+
+
+
+## [Detección en Zonas de Cambio | Edificaciones (*buildings*)]{.big-par}
+
+::: {.incremental .medium-par}
+- Detección de edificaciones (*buildings*).
+  - **run_segmentation**: modelo SAM3 produce máscaras de segmentación para prompt *"building"*: imagen blanco y negro, donde pixeles blancos marcan áreas detectadas.  
+  - **filter_masks**: máscaras son opcionalmente filtradas en base a su *confidence score*.
+  - **masks_to_polygons**: cada máscara es convertida a polígono trazando su contorno. 
+    - Filtro inicial: se descartan polígonos con áreas anómalamente pequeñas o grandes.
+  - **filter_polygons_building**: Filtro secundario: tres pasos.
+    - Por área: para remover ruido, se descartan polígonos con aŕea < X% (50%) del área media de polígonos.
+    - Por contenido: para preservar edificaciones individuales, se descartan polígonos que contienen X (2) o más polígonos más pequeños.
+    - Por traslape: para eliminar duplicados y mantener separadas edificaciones vecinas, se unen polígonos que comparten al menos X% (20%) de su área.
+  - **count_segmented_objects**: para cada celda en la grilla rHEALPix detectada, se calcula:
+    - count: número de polígonos que la intersectan,
+    - coverage: fración del área de la celda que cubren los polígonos.
+:::
+
+
+
+<!-- ## [Detección en Zonas de Cambio | Edificaciones (*buildings*)]{.big-par}
+
+::: {.incremental .medium-par}
+- Detección de edificaciones (*buildings*).
+
+Step 1 — run_segmentation (prompt = "building")
+  The SAM3 model reads the satellite image and the word "building" and produces a
+  set of binary masks — one per region it thinks is a building. Each mask is
+  just a black-and-white image where white pixels mark the detected area.
+
+  ---
+  Step 2 — filter_masks
+  SAM3 assigns a confidence score to every mask. This step keeps only the
+  top-scoring fraction (e.g. top 80 %), discarding low-confidence guesses before
+  any further processing.
+
+  ---
+  Step 3 — masks_to_polygons
+  Converts each binary mask into a Shapely polygon by tracing its outline. Two
+  clean-up rules apply here: tiny fragments smaller than ~7×7 px are discarded as
+  digitisation noise, and polygons covering more than half the image area are
+  dropped (a building can't span the whole scene).
+
+  ---
+  Step 4 — filter_polygons_building
+  This is the building-specific refinement, with three internal passes:
+
+  - Area filter — drops polygons whose area is below a configurable fraction of
+  the median polygon area, removing the smallest leftover noise.
+  - Containment filter — drops any polygon that fully encloses two or more
+  smaller polygons. SAM sometimes outlines an entire city block as one big shape;
+  this pass removes those envelope masks so only individual buildings remain.
+  - Overlap-based merge (Union-Find) — SAM can split a single building across two
+  or more overlapping masks. This pass detects pairs of polygons that share more
+  than 20 % of the smaller one's area and merges them into one, while leaving
+  genuinely separate buildings untouched (neighbouring buildings that merely
+  share a wall produce near-zero overlap and are kept apart).
+
+::: -->
+
+
+
 ## [Detección en Zonas de Cambio | Edificaciones (*buildings*)]{.big-par}
 
 ::: {.center}
-**Máscaras de segmentación** 
+**run_segmentation → Máscaras de segmentación** 
 ![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_building__confidence_0_1.png){.fragment .fade-in-then-out width="85%"}
 :::
 
@@ -163,7 +268,7 @@ format:
 ## [Detección en Zonas de Cambio | Edificaciones (*buildings*)]{.big-par}
 
 ::: {.center}
-**Polígonos (filtrado inicial)** 
+**masks_to_polygons → Polígonos con filtro inicial** 
 ![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_building__confidence_0_1__segmented_polygons.png){.fragment .fade-in-then-out width="85%"}
 :::
 
@@ -171,7 +276,7 @@ format:
 ## [Detección en Zonas de Cambio | Edificaciones (*buildings*)]{.big-par}
 
 ::: {.center}
-**Polígonos (procesados)** 
+**masks_to_polygons → Polígonos con filtro secundario** 
 ![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_building__confidence_0_1__segmented_polygons_filtered.png){.fragment .fade-in-then-out width="85%"}
 :::
 
@@ -180,7 +285,7 @@ format:
 ## [Detección en Zonas de Cambio | Edificaciones (*buildings*)]{.big-par}
 
 ::: {.center}
-**Conteo y cobertura de objetos** 
+**count_segmented_objects -> Conteo y cobertura de polígonos** 
 ![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_building__confidence_0_1__counts_coverage.png){.fragment .fade-in-then-out width="85%"}
 :::
 
@@ -200,10 +305,88 @@ format:
 
 ::: -->
 
+
+
+## [Detección en Zonas de Cambio | Calles y caminos (*roads*)]{.big-par}
+
+::: {.incremental .medium-par}
+- Detección de calles y caminos (*roads*).
+  - **run_segmentation**: modelo SAM3 produce máscaras de segmentación para prompt *"road"*: imagen blanco y negro, donde pixeles blancos marcan áreas detectadas.
+  - **filter_masks**: máscaras son opcionalmente filtradas en base a su *confidence score*.
+  - **masks_to_polygons**: cada máscara es convertida a polígono trazando su contorno. 
+    - Filtro inicial: se descartan polígonos con áreas anómalamente pequeñas o grandes.
+  - **filter_polygons_street**: Filtro secundario: cuatro pasos.
+    - Por área: para remover ruido, se descartan polígonos con aŕea < X% (10%) del área media de polígonos.
+    - Por proximidad: para lograr continuidad de calles, se unen polígonos cercanos entre sí, hasta un límite (5 x median_area).
+    - Por buffer: para mejorar continuidad de calles, polígonos se expanden, unen y luego contraen otra vez. 
+    - Por traslape: para eliminar duplicados residuales, polígonos cuya área está cubierta en X% (60%) por otro polígono mayor se unen a éste.
+  - **count_segmented_objects**: para cada celda en la grilla rHEALPix detectada, se calcula:
+    - count: número de polígonos que la intersectan,
+    - coverage: fración del área de la celda que cubren los polígonos.
+:::
+
+
+
+<!-- ## [Detección en Zonas de Cambio | Calles y caminos (*roads*)]{.big-par}
+
+::: {.incremental .medium-par}
+- Detección de calles y caminos (*roads*).
+
+Step 1 — run_segmentation (prompt = "road")
+  SAM3 reads the satellite image and the word "road" and produces binary masks
+  for regions it considers road surface. Roads are long, thin, and often
+  fragmented, so SAM typically returns many small overlapping pieces rather than
+  one clean shape per road.
+
+  ---
+  Step 2 — filter_masks
+  Keeps only the top-scoring fraction of masks by confidence, discarding
+  low-quality guesses early.
+
+  ---
+  Step 3 — masks_to_polygons
+  Converts each mask to a polygon by tracing its outline. For roads the
+  upper-area threshold is tighter than for buildings (20 % of image area instead
+  of 50 %), since a single road segment should never cover a large portion of the
+  scene.
+
+  ---
+  Step 4 — filter_polygons_street_3
+  This is the road-specific refinement. Roads are harder than buildings because
+  naively joining nearby fragments tends to create large blobs that encircle
+  entire city blocks. The function addresses this with three passes:
+  
+  - Area filter — drops the smallest fragments (below 10 % of the median area),
+  keeping only meaningful road pieces.
+  - Component-aware Union-Find merge — considers all polygon pairs within 20 px
+  of each other, sorted closest-first so tight same-road gaps are joined before
+  distant ones. Crucially, it tracks the total accumulated area of each growing
+  group: if merging two groups would exceed 5× the median polygon area, the merge
+  is blocked. This prevents road segments on opposite sides of a block from
+  being chained into one giant blob encircling the block.
+  - Per-component buffer-erode — within each size-constrained group, expands
+  every polygon by 10 px, unions them, then shrinks back. This bridges small gaps
+  within the same road segment (e.g. interrupted by a pedestrian crossing) and
+  correctly restores any interior holes.
+  - Submersion union — if a polygon is already covered ≥ 60 % by larger accepted
+  polygons, it is merged into them instead of kept separately, eliminating
+  near-duplicate detections.
+
+  ---
+  Key difference from buildings:
+  Buildings are merged by overlap (two masks covering the same roof). Roads are
+  merged by proximity (fragments of the same asphalt strip separated by small
+  gaps), but with a hard area budget to prevent cross-block chaining.
+
+
+::: -->
+
+
+
 ## [Detección en Zonas de Cambio | Calles y caminos (*roads*)]{.big-par}
 
 ::: {.center}
-**Máscaras de segmentación** 
+**run_segmentation → Máscaras de segmentación** 
 ![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_road__confidence_0_15.png){.fragment .fade-in-then-out width="85%"}
 :::
 
@@ -212,7 +395,7 @@ format:
 ## [Detección en Zonas de Cambio | Calles y caminos (*roads*)]{.big-par}
 
 ::: {.center}
-**Polígonos (filtrado inicial)** 
+**masks_to_polygons → Polígonos con filtro inicial** 
 ![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_road__confidence_0_15__segmented_polygons.png){.fragment .fade-in-then-out width="85%"}
 :::
 
@@ -220,7 +403,7 @@ format:
 ## [Detección en Zonas de Cambio | Calles y caminos (*roads*)]{.big-par}
 
 ::: {.center}
-**Polígonos (procesados)** 
+**masks_to_polygons → Polígonos con filtro secundario** 
 ![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_road__confidence_0_15__segmented_polygons_filtered.png){.fragment .fade-in-then-out width="85%"}
 :::
 
@@ -229,7 +412,7 @@ format:
 ## [Detección en Zonas de Cambio | Calles y caminos (*roads*)]{.big-par}
 
 ::: {.center}
-**Conteo y cobertura de objetos** 
+**count_segmented_objects -> Conteo y cobertura de polígonos** 
 ![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_road__confidence_0_15__counts_coverage.png){.fragment .fade-in-then-out width="85%"}
 :::
 
@@ -263,7 +446,7 @@ format:
 
 
 
-## [Ejs. in-LUC | Cluster 12 (crec sostenido) | Edificaciones]{.big-par}
+## [Ejs. in-LUC | Cluster 12 (crecim. sostenido) | Edificaciones]{.big-par}
 
 
 ::: {.center}
@@ -285,7 +468,7 @@ format:
 :::
 
 
-## [Ejs. in-LUC | Cluster 06 (crec sostenido) | Edificaciones]{.big-par}
+## [Ejs. in-LUC | Cluster 06 (crecim. sostenido) | Edificaciones]{.big-par}
 
 ::: {.center}
 **t = 202304 → 202403 → 202412 → 202502** 
@@ -316,7 +499,7 @@ format:
 :::
 
 
-## [Ejs. in-LUC | Cluster 02 (crec reciente) | Edificaciones]{.big-par}
+## [Ejs. in-LUC | Cluster 02 (crecim. reciente) | Edificaciones]{.big-par}
 
 ::: {.center}
 **t = 202304 → 202403 → 202412 → 202502** 
@@ -348,7 +531,7 @@ format:
 
 
 
-## [Ejs. in-LUC | Cluster 03 (pérdida) | Edificaciones]{.big-par}
+## [Ejs. in-LUC | Cluster 03 (decrecim.) | Edificaciones]{.big-par}
 
 ::: {.center}
 **t = 202304 → 202403 → 202412 → 202502** 
@@ -380,7 +563,7 @@ format:
 
 
 
-## [Ejs. in-LUC | Cluster 12 (crec sostenido) | Calles y caminos]{.big-par}
+## [Ejs. in-LUC | Cluster 12 (crecim. sostenido) | Calles y caminos]{.big-par}
 
 ::: {.center}
 **t = 202304 → 202502** 
@@ -401,7 +584,7 @@ format:
 :::
 
 
-## [Ejs. in-LUC | Cluster 06 (crec sostenido) | Calles y caminos]{.big-par}
+## [Ejs. in-LUC | Cluster 06 (crecim. sostenido) | Calles y caminos]{.big-par}
 
 ::: {.center}
 **t = 202304 → 202403 → 202412 → 202502** 
@@ -432,7 +615,7 @@ format:
 :::
 
 
-## [Ejs. in-LUC | Cluster 02 (crec reciente) | Calles y caminos]{.big-par}
+## [Ejs. in-LUC | Cluster 02 (crecim. reciente) | Calles y caminos]{.big-par}
 
 ::: {.center}
 **t = 202304 → 202403 → 202412 → 202502** 
@@ -464,7 +647,7 @@ format:
 
 
 
-## [Ejs. in-LUC | Cluster 03 (pérdida) | Calles y caminos]{.big-par}
+## [Ejs. in-LUC | Cluster 03 (decrecim.) | Calles y caminos]{.big-par}
 
 ::: {.center}
 **t = 202304 → 202403 → 202412 → 202502** 
@@ -518,7 +701,7 @@ format:
 
 [<img src="imagenes/logo_portada2.png" width="20%"/>]{.center}
 
-[**Deep Learning para Detección de Cambios en Cartografía**]{.big-par .center-justified}
+[**Deep Learning para Detección de Cambios en Cartografía INE**]{.big-par .center-justified}
 [**Ciencia de Datos**]{.medium-par.center-justified}
 
 [**Junio 2026**]{.big-par .center-justified}
