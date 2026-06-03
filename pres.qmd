@@ -45,9 +45,11 @@ format:
 
 - Detección en Zonas de Cambio
 
-  - Edificaciones (*buildings*)
+  - Detección de grilla rHEALPix.
 
-  - Calles y caminos (*roads*)
+  - Detección de edificaciones (*buildings*).
+
+  - Detección de calles y caminos (*roads*).
 
 - Ejemplos in-LUC
 
@@ -61,8 +63,33 @@ format:
 
   - ...
 
+
+
 ## [Motivación]{.big-par}
 
+::: {.incremental .medium-par}
+- Aprovechar el estado del arte en modelos deep learning y de detección + segmentación de objetos para su aplicación en imágenes satelitales.
+- Avanzar hacia una actualización asistida (~automática) de la actualización planimétrica de la cartografía INE (Desafío público ANID 2022).
+  - Con un uso eficiente de recursos humanos y disminución en costos de producción. 
+:::
+
+. . .
+
+:::: {.columns}
+
+::: {.column width="45%"}
+<!-- ::: {.incremental .small-par} -->
+[<img src="imagenes/papers/Brown_etal_2022_DW.png" width="100%"/>]{.center} 
+(Brown et al., 2022. Google)
+<!-- ::: -->
+:::
+
+::: {.column width="45%"}
+[<img src="imagenes/papers/Carion_etal_2026_sam3.png" width="100%"/>]{.center} 
+(Carion et al., 2026. Meta)
+:::
+
+::::
 
 
 ## [Detección de Cambios]{.big-par}
@@ -95,7 +122,71 @@ format:
 
 
 
+## [Detección en Zonas de Cambio | Flujo general]{.big-par}
+
+::: {.incremental .medium-par}
+- Detección de grilla rHEALPix.
+  - ...
+- Detección de edificaciones (buildings).
+  - ...
+- Detección de calles y caminos (roads).
+  - ...
+:::
+
+
+
+## [Detección en Zonas de Cambio | Grilla rHEALPix]{.big-par}
+
+<!-- ::: {.center}
+![](imagenes/data/cluster_12/P67536523705__20250221T0000__prompt_building__confidence_0_1__detected_anchor_cell.png){.fragment .fade-in-then-out width="85%"}
+::: -->
+
+::: {.r-stack fragment-index=2 .center}
+
+:::: {.fragment}
+![](imagenes/data/cluster_12/P67536523705__20250221T0000__prompt_building__confidence_0_1__detected_anchor_cell.png){width="85%"}
+![](imagenes/data/cluster_12/P67536523705__20250221T0000__prompt_building__confidence_0_1__cell_codes.png){width="70%"}
+::::
+
+:::
+
+
 ## [Detección en Zonas de Cambio | Edificaciones (*buildings*)]{.big-par}
+
+::: {.center}
+**Máscaras de segmentación** 
+![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_building__confidence_0_1.png){.fragment .fade-in-then-out width="85%"}
+:::
+
+
+
+## [Detección en Zonas de Cambio | Edificaciones (*buildings*)]{.big-par}
+
+::: {.center}
+**Polígonos (filtrado inicial)** 
+![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_building__confidence_0_1__segmented_polygons.png){.fragment .fade-in-then-out width="85%"}
+:::
+
+
+## [Detección en Zonas de Cambio | Edificaciones (*buildings*)]{.big-par}
+
+::: {.center}
+**Polígonos (procesados)** 
+![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_building__confidence_0_1__segmented_polygons_filtered.png){.fragment .fade-in-then-out width="85%"}
+:::
+
+
+
+## [Detección en Zonas de Cambio | Edificaciones (*buildings*)]{.big-par}
+
+::: {.center}
+**Conteo y cobertura de objetos** 
+![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_building__confidence_0_1__counts_coverage.png){.fragment .fade-in-then-out width="85%"}
+:::
+
+
+
+<!-- ## [Detección en Zonas de Cambio | Edificaciones (*buildings*)]{.big-par}
 
 ::: {.r-stack fragment-index=2 .center}
 
@@ -107,11 +198,44 @@ format:
 
 ![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_building__confidence_0_1__counts_coverage.png){.fragment .fade-in-then-out width="90%"}
 
+::: -->
+
+## [Detección en Zonas de Cambio | Calles y caminos (*roads*)]{.big-par}
+
+::: {.center}
+**Máscaras de segmentación** 
+![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_road__confidence_0_15.png){.fragment .fade-in-then-out width="85%"}
 :::
 
 
 
 ## [Detección en Zonas de Cambio | Calles y caminos (*roads*)]{.big-par}
+
+::: {.center}
+**Polígonos (filtrado inicial)** 
+![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_road__confidence_0_15__segmented_polygons.png){.fragment .fade-in-then-out width="85%"}
+:::
+
+
+## [Detección en Zonas de Cambio | Calles y caminos (*roads*)]{.big-par}
+
+::: {.center}
+**Polígonos (procesados)** 
+![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_road__confidence_0_15__segmented_polygons_filtered.png){.fragment .fade-in-then-out width="85%"}
+:::
+
+
+
+## [Detección en Zonas de Cambio | Calles y caminos (*roads*)]{.big-par}
+
+::: {.center}
+**Conteo y cobertura de objetos** 
+![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_road__confidence_0_15__counts_coverage.png){.fragment .fade-in-then-out width="85%"}
+:::
+
+
+
+<!-- ## [Detección en Zonas de Cambio | Calles y caminos (*roads*)]{.big-par}
 
 ::: {.r-stack fragment-index=2 .center}
 
@@ -123,7 +247,7 @@ format:
 
 ![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_road__confidence_0_15__counts_coverage.png){.fragment .fade-in-then-out width="90%"}
 
-:::
+::: -->
 
 
 
@@ -141,6 +265,11 @@ format:
 
 ## [Ejs. in-LUC | Cluster 12 (crec sostenido) | Edificaciones]{.big-par}
 
+
+::: {.center}
+**t = 202304 → 202502** 
+:::
+
 ::: {.r-stack fragment-index=2 .center}
 
 :::: {.fragment}
@@ -157,6 +286,10 @@ format:
 
 
 ## [Ejs. in-LUC | Cluster 06 (crec sostenido) | Edificaciones]{.big-par}
+
+::: {.center}
+**t = 202304 → 202403 → 202412 → 202502** 
+:::
 
 ::: {.r-stack fragment-index=2 .center}
 
@@ -184,6 +317,10 @@ format:
 
 
 ## [Ejs. in-LUC | Cluster 02 (crec reciente) | Edificaciones]{.big-par}
+
+::: {.center}
+**t = 202304 → 202403 → 202412 → 202502** 
+:::
 
 ::: {.r-stack fragment-index=2 .center}
 
@@ -213,6 +350,10 @@ format:
 
 ## [Ejs. in-LUC | Cluster 03 (pérdida) | Edificaciones]{.big-par}
 
+::: {.center}
+**t = 202304 → 202403 → 202412 → 202502** 
+:::
+
 ::: {.r-stack fragment-index=2 .center}
 
 :::: {.fragment}
@@ -241,6 +382,10 @@ format:
 
 ## [Ejs. in-LUC | Cluster 12 (crec sostenido) | Calles y caminos]{.big-par}
 
+::: {.center}
+**t = 202304 → 202502** 
+:::
+
 ::: {.r-stack fragment-index=2 .center}
 
 :::: {.fragment}
@@ -257,6 +402,10 @@ format:
 
 
 ## [Ejs. in-LUC | Cluster 06 (crec sostenido) | Calles y caminos]{.big-par}
+
+::: {.center}
+**t = 202304 → 202403 → 202412 → 202502** 
+:::
 
 ::: {.r-stack fragment-index=2 .center}
 
@@ -285,6 +434,10 @@ format:
 
 ## [Ejs. in-LUC | Cluster 02 (crec reciente) | Calles y caminos]{.big-par}
 
+::: {.center}
+**t = 202304 → 202403 → 202412 → 202502** 
+:::
+
 ::: {.r-stack fragment-index=2 .center}
 
 :::: {.fragment}
@@ -312,6 +465,10 @@ format:
 
 
 ## [Ejs. in-LUC | Cluster 03 (pérdida) | Calles y caminos]{.big-par}
+
+::: {.center}
+**t = 202304 → 202403 → 202412 → 202502** 
+:::
 
 ::: {.r-stack fragment-index=2 .center}
 

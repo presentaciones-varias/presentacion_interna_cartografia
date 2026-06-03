@@ -151,8 +151,9 @@
 </ul></li>
 <li><p>Detección en Zonas de Cambio</p>
 <ul>
-<li><p>Edificaciones (<em>buildings</em>)</p></li>
-<li><p>Calles y caminos (<em>roads</em>)</p></li>
+<li><p>Detección de grilla rHEALPix.</p></li>
+<li><p>Detección de edificaciones (<em>buildings</em>).</p></li>
+<li><p>Detección de calles y caminos (<em>roads</em>).</p></li>
 </ul></li>
 <li><p>Ejemplos in-LUC</p>
 <ul>
@@ -168,6 +169,24 @@
 </section>
 <section id="motivación" class="slide level2">
 <h2><span class="big-par">Motivación</span></h2>
+<div class="medium-par">
+<ul>
+<li class="fragment">Aprovechar el estado del arte en modelos deep learning y de detección + segmentación de objetos para su aplicación en imágenes satelitales.</li>
+<li class="fragment">Avanzar hacia una actualización asistida (~automática) de la actualización planimétrica de la cartografía INE (Desafío público ANID 2022).
+<ul>
+<li class="fragment">Con un uso eficiente de recursos humanos y disminución en costos de producción.</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<div class="columns">
+<div class="column" style="width:45%;">
+<!-- ::: {.incremental .small-par} -->
+<p><span class="center"><img src="imagenes/papers/Brown_etal_2022_DW.png" width="100%"></span> (Brown et al., 2022. Google) <!-- ::: --></p>
+</div><div class="column" style="width:45%;">
+<p><span class="center"><img src="imagenes/papers/Carion_etal_2026_sam3.png" width="100%"></span> (Carion et al., 2026. Meta)</p>
+</div></div>
+</div>
 </section>
 <section id="detección-de-cambios" class="slide level2">
 <h2><span class="big-par">Detección de Cambios</span></h2>
@@ -187,23 +206,109 @@
 <p><img data-src="imagenes/data/reg_08_06.png" class="fragment fade-in-then-out" style="width:100.0%"></p>
 </div>
 </section>
+<section id="detección-en-zonas-de-cambio-flujo-general" class="slide level2">
+<h2><span class="big-par">Detección en Zonas de Cambio | Flujo general</span></h2>
+<div class="medium-par">
+<ul>
+<li class="fragment">Detección de grilla rHEALPix.
+<ul>
+<li class="fragment">…</li>
+</ul></li>
+<li class="fragment">Detección de edificaciones (buildings).
+<ul>
+<li class="fragment">…</li>
+</ul></li>
+<li class="fragment">Detección de calles y caminos (roads).
+<ul>
+<li class="fragment">…</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="detección-en-zonas-de-cambio-grilla-rhealpix" class="slide level2">
+<h2><span class="big-par">Detección en Zonas de Cambio | Grilla rHEALPix</span></h2>
+<!-- ::: {.center}
+![](imagenes/data/cluster_12/P67536523705__20250221T0000__prompt_building__confidence_0_1__detected_anchor_cell.png){.fragment .fade-in-then-out width="85%"}
+::: -->
+<div class="r-stack center" data-fragment-index="2">
+<div class="fragment">
+<p><img data-src="imagenes/data/cluster_12/P67536523705__20250221T0000__prompt_building__confidence_0_1__detected_anchor_cell.png" style="width:85.0%"> <img data-src="imagenes/data/cluster_12/P67536523705__20250221T0000__prompt_building__confidence_0_1__cell_codes.png" style="width:70.0%"></p>
+</div>
+</div>
+</section>
 <section id="detección-en-zonas-de-cambio-edificaciones-buildings" class="slide level2">
 <h2><span class="big-par">Detección en Zonas de Cambio | Edificaciones (<em>buildings</em>)</span></h2>
-<div class="r-stack center" data-fragment-index="2">
-<p><img data-src="imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_building__confidence_0_1.png" class="fragment fade-in-then-out" style="width:90.0%"></p>
-<p><img data-src="imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_building__confidence_0_1__segmented_polygons.png" class="fragment fade-in-then-out" style="width:90.0%"></p>
-<p><img data-src="imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_building__confidence_0_1__segmented_polygons_filtered.png" class="fragment fade-in-then-out" style="width:90.0%"></p>
-<p><img data-src="imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_building__confidence_0_1__counts_coverage.png" class="fragment fade-in-then-out" style="width:90.0%"></p>
+<div class="center">
+<p><strong>Máscaras de segmentación</strong> <img data-src="imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_building__confidence_0_1.png" class="fragment fade-in-then-out" style="width:85.0%"></p>
 </div>
+</section>
+<section id="detección-en-zonas-de-cambio-edificaciones-buildings-1" class="slide level2">
+<h2><span class="big-par">Detección en Zonas de Cambio | Edificaciones (<em>buildings</em>)</span></h2>
+<div class="center">
+<p><strong>Polígonos (filtrado inicial)</strong> <img data-src="imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_building__confidence_0_1__segmented_polygons.png" class="fragment fade-in-then-out" style="width:85.0%"></p>
+</div>
+</section>
+<section id="detección-en-zonas-de-cambio-edificaciones-buildings-2" class="slide level2">
+<h2><span class="big-par">Detección en Zonas de Cambio | Edificaciones (<em>buildings</em>)</span></h2>
+<div class="center">
+<p><strong>Polígonos (procesados)</strong> <img data-src="imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_building__confidence_0_1__segmented_polygons_filtered.png" class="fragment fade-in-then-out" style="width:85.0%"></p>
+</div>
+</section>
+<section id="detección-en-zonas-de-cambio-edificaciones-buildings-3" class="slide level2">
+<h2><span class="big-par">Detección en Zonas de Cambio | Edificaciones (<em>buildings</em>)</span></h2>
+<div class="center">
+<p><strong>Conteo y cobertura de objetos</strong> <img data-src="imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_building__confidence_0_1__counts_coverage.png" class="fragment fade-in-then-out" style="width:85.0%"></p>
+</div>
+<!-- ## [Detección en Zonas de Cambio | Edificaciones (*buildings*)]{.big-par}
+
+::: {.r-stack fragment-index=2 .center}
+
+![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_building__confidence_0_1.png){.fragment .fade-in-then-out width="90%"}
+
+![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_building__confidence_0_1__segmented_polygons.png){.fragment .fade-in-then-out width="90%"}
+
+![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_building__confidence_0_1__segmented_polygons_filtered.png){.fragment .fade-in-then-out width="90%"}
+
+![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_building__confidence_0_1__counts_coverage.png){.fragment .fade-in-then-out width="90%"}
+
+::: -->
 </section>
 <section id="detección-en-zonas-de-cambio-calles-y-caminos-roads" class="slide level2">
 <h2><span class="big-par">Detección en Zonas de Cambio | Calles y caminos (<em>roads</em>)</span></h2>
-<div class="r-stack center" data-fragment-index="2">
-<p><img data-src="imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_road__confidence_0_15.png" class="fragment fade-in-then-out" style="width:90.0%"></p>
-<p><img data-src="imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_road__confidence_0_15__segmented_polygons.png" class="fragment fade-in-then-out" style="width:90.0%"></p>
-<p><img data-src="imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_road__confidence_0_15__segmented_polygons_filtered.png" class="fragment fade-in-then-out" style="width:90.0%"></p>
-<p><img data-src="imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_road__confidence_0_15__counts_coverage.png" class="fragment fade-in-then-out" style="width:90.0%"></p>
+<div class="center">
+<p><strong>Máscaras de segmentación</strong> <img data-src="imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_road__confidence_0_15.png" class="fragment fade-in-then-out" style="width:85.0%"></p>
 </div>
+</section>
+<section id="detección-en-zonas-de-cambio-calles-y-caminos-roads-1" class="slide level2">
+<h2><span class="big-par">Detección en Zonas de Cambio | Calles y caminos (<em>roads</em>)</span></h2>
+<div class="center">
+<p><strong>Polígonos (filtrado inicial)</strong> <img data-src="imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_road__confidence_0_15__segmented_polygons.png" class="fragment fade-in-then-out" style="width:85.0%"></p>
+</div>
+</section>
+<section id="detección-en-zonas-de-cambio-calles-y-caminos-roads-2" class="slide level2">
+<h2><span class="big-par">Detección en Zonas de Cambio | Calles y caminos (<em>roads</em>)</span></h2>
+<div class="center">
+<p><strong>Polígonos (procesados)</strong> <img data-src="imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_road__confidence_0_15__segmented_polygons_filtered.png" class="fragment fade-in-then-out" style="width:85.0%"></p>
+</div>
+</section>
+<section id="detección-en-zonas-de-cambio-calles-y-caminos-roads-3" class="slide level2">
+<h2><span class="big-par">Detección en Zonas de Cambio | Calles y caminos (<em>roads</em>)</span></h2>
+<div class="center">
+<p><strong>Conteo y cobertura de objetos</strong> <img data-src="imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_road__confidence_0_15__counts_coverage.png" class="fragment fade-in-then-out" style="width:85.0%"></p>
+</div>
+<!-- ## [Detección en Zonas de Cambio | Calles y caminos (*roads*)]{.big-par}
+
+::: {.r-stack fragment-index=2 .center}
+
+![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_road__confidence_0_15.png){.fragment .fade-in-then-out width="90%"}
+
+![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_road__confidence_0_15__segmented_polygons.png){.fragment .fade-in-then-out width="90%"}
+
+![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_road__confidence_0_15__segmented_polygons_filtered.png){.fragment .fade-in-then-out width="90%"}
+
+![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_road__confidence_0_15__counts_coverage.png){.fragment .fade-in-then-out width="90%"}
+
+::: -->
 <!-- ## [Detección en Zonas de Cambio | Edificaciones (*buildings*)]{.big-par}
 
 ::: {.r-stack fragment-index=2 .center}
@@ -216,6 +321,9 @@
 </section>
 <section id="ejs.-in-luc-cluster-12-crec-sostenido-edificaciones" class="slide level2">
 <h2><span class="big-par">Ejs. in-LUC | Cluster 12 (crec sostenido) | Edificaciones</span></h2>
+<div class="center">
+<p><strong>t = 202304 → 202502</strong></p>
+</div>
 <div class="r-stack center" data-fragment-index="2">
 <div class="fragment">
 <p><img data-src="imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_building__confidence_0_1__segmented_polygons_filtered.png" style="width:70.0%"> <img data-src="imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_building__confidence_0_1__counts_coverage.png" style="width:70.0%"></p>
@@ -227,6 +335,9 @@
 </section>
 <section id="ejs.-in-luc-cluster-06-crec-sostenido-edificaciones" class="slide level2">
 <h2><span class="big-par">Ejs. in-LUC | Cluster 06 (crec sostenido) | Edificaciones</span></h2>
+<div class="center">
+<p><strong>t = 202304 → 202403 → 202412 → 202502</strong></p>
+</div>
 <div class="r-stack center" data-fragment-index="2">
 <div class="fragment">
 <p><img data-src="imagenes/data/cluster_06/P67536475341__20230416T0000__prompt_building__confidence_0_15__segmented_polygons_filtered.png" style="width:70.0%"> <img data-src="imagenes/data/cluster_06/P67536475341__20230416T0000__prompt_building__confidence_0_15__counts_coverage.png" style="width:70.0%"></p>
@@ -244,6 +355,9 @@
 </section>
 <section id="ejs.-in-luc-cluster-02-crec-reciente-edificaciones" class="slide level2">
 <h2><span class="big-par">Ejs. in-LUC | Cluster 02 (crec reciente) | Edificaciones</span></h2>
+<div class="center">
+<p><strong>t = 202304 → 202403 → 202412 → 202502</strong></p>
+</div>
 <div class="r-stack center" data-fragment-index="2">
 <div class="fragment">
 <p><img data-src="imagenes/data/cluster_02/P67536771244__20230416T0000__prompt_building__confidence_0_15__segmented_polygons_filtered.png" style="width:70.0%"> <img data-src="imagenes/data/cluster_02/P67536771244__20230416T0000__prompt_building__confidence_0_15__counts_coverage.png" style="width:70.0%"></p>
@@ -261,6 +375,9 @@
 </section>
 <section id="ejs.-in-luc-cluster-03-pérdida-edificaciones" class="slide level2">
 <h2><span class="big-par">Ejs. in-LUC | Cluster 03 (pérdida) | Edificaciones</span></h2>
+<div class="center">
+<p><strong>t = 202304 → 202403 → 202412 → 202502</strong></p>
+</div>
 <div class="r-stack center" data-fragment-index="2">
 <div class="fragment">
 <p><img data-src="imagenes/data/cluster_03_perd/P67536747320__20230416T0000__prompt_building__confidence_0_15__segmented_polygons_filtered.png" style="width:70.0%"> <img data-src="imagenes/data/cluster_03_perd/P67536747320__20230416T0000__prompt_building__confidence_0_15__counts_coverage.png" style="width:70.0%"></p>
@@ -278,6 +395,9 @@
 </section>
 <section id="ejs.-in-luc-cluster-12-crec-sostenido-calles-y-caminos" class="slide level2">
 <h2><span class="big-par">Ejs. in-LUC | Cluster 12 (crec sostenido) | Calles y caminos</span></h2>
+<div class="center">
+<p><strong>t = 202304 → 202502</strong></p>
+</div>
 <div class="r-stack center" data-fragment-index="2">
 <div class="fragment">
 <p><img data-src="imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_road__confidence_0_15__segmented_polygons_filtered.png" style="width:70.0%"> <img data-src="imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_road__confidence_0_15__counts_coverage.png" style="width:70.0%"></p>
@@ -289,6 +409,9 @@
 </section>
 <section id="ejs.-in-luc-cluster-06-crec-sostenido-calles-y-caminos" class="slide level2">
 <h2><span class="big-par">Ejs. in-LUC | Cluster 06 (crec sostenido) | Calles y caminos</span></h2>
+<div class="center">
+<p><strong>t = 202304 → 202403 → 202412 → 202502</strong></p>
+</div>
 <div class="r-stack center" data-fragment-index="2">
 <div class="fragment">
 <p><img data-src="imagenes/data/cluster_06/P67536475341__20230416T0000__prompt_road__confidence_0_15__segmented_polygons_filtered.png" style="width:70.0%"> <img data-src="imagenes/data/cluster_06/P67536475341__20230416T0000__prompt_road__confidence_0_15__counts_coverage.png" style="width:70.0%"></p>
@@ -306,6 +429,9 @@
 </section>
 <section id="ejs.-in-luc-cluster-02-crec-reciente-calles-y-caminos" class="slide level2">
 <h2><span class="big-par">Ejs. in-LUC | Cluster 02 (crec reciente) | Calles y caminos</span></h2>
+<div class="center">
+<p><strong>t = 202304 → 202403 → 202412 → 202502</strong></p>
+</div>
 <div class="r-stack center" data-fragment-index="2">
 <div class="fragment">
 <p><img data-src="imagenes/data/cluster_02/P67536771244__20230416T0000__prompt_road__confidence_0_15__segmented_polygons_filtered.png" style="width:70.0%"> <img data-src="imagenes/data/cluster_02/P67536771244__20230416T0000__prompt_road__confidence_0_15__counts_coverage.png" style="width:70.0%"></p>
@@ -323,6 +449,9 @@
 </section>
 <section id="ejs.-in-luc-cluster-03-pérdida-calles-y-caminos" class="slide level2">
 <h2><span class="big-par">Ejs. in-LUC | Cluster 03 (pérdida) | Calles y caminos</span></h2>
+<div class="center">
+<p><strong>t = 202304 → 202403 → 202412 → 202502</strong></p>
+</div>
 <div class="r-stack center" data-fragment-index="2">
 <div class="fragment">
 <p><img data-src="imagenes/data/cluster_03_perd/P67536747320__20230416T0000__prompt_road__confidence_0_15__segmented_polygons_filtered.png" style="width:70.0%"> <img data-src="imagenes/data/cluster_03_perd/P67536747320__20230416T0000__prompt_road__confidence_0_15__counts_coverage.png" style="width:70.0%"></p>
