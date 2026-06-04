@@ -39,13 +39,13 @@ format:
 
 - Motivación
 
-- Detección de Cambios
+- Etapa 1: Detección de Cambios
 
   - Dentro del LUC (in-LUC)
 
   - *Fuera del LUC (out-LUC)*
 
-- Detección en Zonas de Cambio
+- Etapa 2: Detección en Zonas de Cambio
 
   - Detección de grilla rHEALPix.
 
@@ -110,6 +110,53 @@ format:
   - Georeferenciar infraestructura detectada (edificaciones y calles / caminos), como insumo para la actualización de la cartografía INE. 
 :::
 
+
+
+
+## [Detección de Cambios]{.big-par}
+
+:::: {layout-ncol=2}
+
+:::{.fragment .medium-par .center} 
+
+Probabilidades built 2025 
+ 
+![](imagenes/data/deteccion_cambios/probs_R08.png){ width="90%"}
+
+:::
+
+:::{.fragment .medium-par .center} 
+Cambios detectados
+
+![](imagenes/data/deteccion_cambios/clusters_R08.png){width="110%"}
+
+:::
+
+::::
+
+## [Detección de Cambios]{.big-par}
+
+::: {.incremental .medium-par}
+
+Clasificación basada en:
+
+1. Magnitud del cambio anual (delta de probabilidad built 2025 y 2024)
+2. Persistencia temporal de la celda con construcción (2017–2025)
+
+:::
+
+. . .
+
+:::{.medium-par}
+
+| Fenómeno                      | Persistencia típica |
+| ----------------------------- | ------------------- | 
+| Crecimiento nuevo sostenido   | 000001111  | 
+| Crecimiento nuevo reciente    | 000000011  | 
+| Crecimiento en zona existente | 111111111  | 
+| Pérdida de construcción       | 111111110  | 
+
+:::
 
 
 ## [Detección de Cambios]{.big-par}
