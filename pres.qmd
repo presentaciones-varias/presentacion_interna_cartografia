@@ -759,3 +759,115 @@ Step 1 — run_segmentation (prompt = "road")
 
 
 
+## [Detección con ejemplo | Cluster 12 | Calles y caminos]{.big-par}
+
+::: {.center}
+**t = 202502** 
+
+![](imagenes/data/cluster_12/P67536523705__20250221T0000__prompt_road__confidence_0_15__exemplar_box_draw.png){.fragment .fade-in-then-out width="70%"}
+:::
+
+
+
+## [Detección con ejemplo | Cluster 12 | Calles y caminos]{.big-par}
+
+::: {.center}
+**t = 202502 | sin vs con ejemplo** 
+:::
+
+. . .
+
+:::: {.columns}
+::: {.column width="45%"}
+<!-- ::: {.incremental .small-par} -->
+[<img src="imagenes/data/cluster_12/P67536523705__20250221T0000__prompt_road__confidence_0_15.png" width="100%"/>]{.center} 
+<!-- ::: -->
+:::
+::: {.column width="45%"}
+[<img src="imagenes/data/cluster_12/P67536523705__20250221T0000__prompt_road__confidence_0_15__exemplar_box.png" width="100%"/>]{.center} 
+:::
+::::
+
+. . .
+
+:::: {.columns}
+::: {.column width="45%"}
+<!-- ::: {.incremental .small-par} -->
+[<img src="imagenes/data/cluster_12/P67536523705__20250221T0000__prompt_road__confidence_0_15__segmented_polygons.png" width="100%"/>]{.center} 
+<!-- ::: -->
+:::
+::: {.column width="45%"}
+[<img src="imagenes/data/cluster_12/P67536523705__20250221T0000__prompt_road__confidence_0_15__exemplar_box_segmented_polygons.png" width="100%"/>]{.center} 
+:::
+::::
+
+. . .
+
+:::: {.columns}
+::: {.column width="45%"}
+<!-- ::: {.incremental .small-par} -->
+[<img src="imagenes/data/cluster_12/P67536523705__20250221T0000__prompt_road__confidence_0_15__segmented_polygons_filtered.png" width="100%"/>]{.center} 
+<!-- ::: -->
+:::
+::: {.column width="45%"}
+[<img src="imagenes/data/cluster_12/P67536523705__20250221T0000__prompt_road__confidence_0_15__exemplar_box_segmented_polygons_filtered.png" width="100%"/>]{.center} 
+:::
+::::
+
+
+
+## [Detección con ejemplo | Cluster 06 | Calles y caminos]{.big-par}
+
+::: {.center}
+**t = 202502** 
+
+![](imagenes/data/cluster_06/P67536475341__20250221T0000__prompt_road__confidence_0_15__exemplar_box_draw.png){.fragment .fade-in-then-out width="70%"}
+:::
+
+
+
+## [Detección con ejemplo | Cluster 06 | Calles y caminos]{.big-par}
+
+::: {.center}
+**t = 202502 | sin vs con ejemplo** 
+:::
+
+. . .
+
+:::: {.columns}
+::: {.column width="45%"}
+<!-- ::: {.incremental .small-par} -->
+[<img src="imagenes/data/cluster_06/P67536475341__20250221T0000__prompt_road__confidence_0_15.png" width="100%"/>]{.center} 
+<!-- ::: -->
+:::
+::: {.column width="45%"}
+[<img src="imagenes/data/cluster_06/P67536475341__20250221T0000__prompt_road__confidence_0_15__exemplar_box.png" width="100%"/>]{.center} 
+:::
+::::
+
+. . .
+
+:::: {.columns}
+::: {.column width="45%"}
+<!-- ::: {.incremental .small-par} -->
+[<img src="imagenes/data/cluster_06/P67536475341__20250221T0000__prompt_road__confidence_0_15__segmented_polygons.png" width="100%"/>]{.center} 
+<!-- ::: -->
+:::
+::: {.column width="45%"}
+[<img src="imagenes/data/cluster_06/P67536475341__20250221T0000__prompt_road__confidence_0_15__exemplar_box_segmented_polygons.png" width="100%"/>]{.center} 
+:::
+::::
+
+. . .
+
+:::: {.columns}
+::: {.column width="45%"}
+<!-- ::: {.incremental .small-par} -->
+[<img src="imagenes/data/cluster_06/P67536475341__20250221T0000__prompt_road__confidence_0_15__segmented_polygons_filtered.png" width="100%"/>]{.center} 
+<!-- ::: -->
+:::
+::: {.column width="45%"}
+[<img src="imagenes/data/cluster_06/P67536475341__20250221T0000__prompt_road__confidence_0_15__exemplar_box_segmented_polygons_filtered.png" width="100%"/>]{.center} 
+:::
+::::
+
