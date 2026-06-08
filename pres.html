@@ -144,27 +144,23 @@
 <!-- ::: {.incremental} -->
 <div class="medium-par">
 <ul>
-<li><p>Motivación</p></li>
-<li><p>Etapa 1: Detección de Cambios</p>
+<li>Motivación</li>
+<li>Etapa 1: Detección de Cambios.
 <ul>
-<li><p>Dentro del LUC (in-LUC)</p></li>
-<li><p><em>Fuera del LUC (out-LUC)</em></p></li>
+<li>Procesamiento de Dynamic World.</li>
+<li>Clasificación de Clusters.</li>
 </ul></li>
-<li><p>Etapa 2: Detección en Zonas de Cambio</p>
+<li>Etapa 2: Detección en Zonas de Cambio.
 <ul>
-<li><p>Detección de grilla rHEALPix.</p></li>
-<li><p>Detección de edificaciones (<em>buildings</em>).</p></li>
-<li><p>Detección de calles y caminos (<em>roads</em>).</p></li>
+<li>Detección de grilla rHEALPix.</li>
+<li>Detección de edificaciones (<em>buildings</em>).</li>
+<li>Detección de calles y caminos (<em>roads</em>).</li>
 </ul></li>
-<li><p>Ejemplos in-LUC</p>
+<li>Ejemplos in-LUC
 <ul>
-<li><p>Cluster 12 (crecimiento nuevo sostenido)</p></li>
-<li><p>Cluster 6 (crecimiento nuevo reciente)</p></li>
-<li><p>Cluster 2 (crecimiento nuevo reciente)</p></li>
-</ul></li>
-<li><p><em>Ejemplos out-LUC</em></p>
-<ul>
-<li>…</li>
+<li>Cluster 12 (crecimiento nuevo sostenido)</li>
+<li>Cluster 6 (crecimiento nuevo reciente)</li>
+<li>Cluster 2 (crecimiento nuevo reciente)</li>
 </ul></li>
 </ul>
 </div>
@@ -178,7 +174,7 @@
 <li class="fragment">Contexto: actualización planimétrica de la cartografía INE (Desafío público ANID 2022).</li>
 <li class="fragment">Uso eficiente de recursos humanos y disminución en costos de producción para la institución.</li>
 </ul></li>
-<li class="fragment">Hacer uso del estado del arte en visión computacional, modelos deep learning y de detección + segmentación de objetos y de su aplicabilidad en imágenes satelitales.</li>
+<li class="fragment">Aprovechar el estado del arte en visión computacional y deep learning, incluyendo modelos de detección y segmentación, para el análisis de imágenes satelitales.</li>
 </ul>
 </div>
 <div class="fragment">
@@ -195,22 +191,26 @@
 <h2><span class="big-par">Motivación</span></h2>
 <div class="medium-par">
 <ul>
-<li class="fragment">Flujo propuesto: Detección de Cambios + Detección en Zonas de Cambio</li>
-<li class="fragment">Detección de Cambios: basado en dataset de Uso y Cobertura de Suelo (Dynamic World V1).
+<li class="fragment">Flujo propuesto en dos etapas: <strong>Detección de Cambios → Detección en Zonas de Cambio</strong>.</li>
+<li class="fragment"><strong>Detección de Cambios:</strong> basado en dataset de Uso y Cobertura de Suelo (Dynamic World V1).
 <ul>
 <li class="fragment">Detectar áreas que han sufrido cambios en zonas urbanas en la cartografía INE.</li>
 <li class="fragment">Clasificar cambios detectados en diversos fenómenos. Ej: crecimiento sostenido, decrecimiento, etc.</li>
 </ul></li>
-<li class="fragment">Detección en Zonas de Cambio: zoom en áreas de cambios detectados en etapa anterior.
+<li class="fragment"><strong>Detección en Zonas de Cambio:</strong> zoom en áreas de cambios detectados en etapa anterior.
 <ul>
 <li class="fragment">Aplicar un modelo de detectión y segmentación de objetos (SAM3) para detectar infraestructura relevante para la actualización de la cartografía INE.</li>
 <li class="fragment">Georeferenciar infraestructura detectada (edificaciones y calles / caminos), como insumo para la actualización de la cartografía INE.</li>
 </ul></li>
+<li class="fragment">Resultados preliminares en esta presentación: Gran Concepción (Dentro del LUC).
+<ul>
+<li class="fragment">Procesamiento en curso para otras regiones: Iquique, Valparaíso, Santiago.</li>
+</ul></li>
 </ul>
 </div>
 </section>
-<section id="detección-de-cambios" class="slide level2">
-<h2><span class="big-par">Detección de Cambios</span></h2>
+<section id="detección-de-cambios-procesamiento-de-dynamic-world" class="slide level2">
+<h2><span class="big-par">Detección de Cambios | Procesamiento de Dynamic World</span></h2>
 <div class="quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="fragment medium-par center quarto-layout-cell" style="flex-basis: 45.0%;justify-content: center;">
@@ -224,8 +224,8 @@
 </div>
 </div>
 </section>
-<section id="detección-de-cambios-1" class="slide level2 scrollable">
-<h2><span class="big-par">Detección de Cambios</span></h2>
+<section id="detección-de-cambios-clasificación-de-clusters" class="slide level2 scrollable">
+<h2><span class="big-par">Detección de Cambios | Clasificación de Clusters</span></h2>
 <div class="medium-par">
 <p>Clasificación basada en:</p>
 <ol type="1">
@@ -264,8 +264,8 @@
 </div>
 </div>
 </section>
-<section id="detección-de-cambios-2" class="slide level2">
-<h2><span class="big-par">Detección de Cambios</span></h2>
+<section id="detección-de-cambios-clusters-por-fenómeno" class="slide level2">
+<h2><span class="big-par">Detección de Cambios | Clusters por fenómeno</span></h2>
 <!-- ::: {.center}
 ![](imagenes/data/reg_08_01.png){width="100%"}
 ::: -->
@@ -418,7 +418,7 @@ Step 1 — run_segmentation (prompt = "building")
 <section id="detección-en-zonas-de-cambio-edificaciones-buildings-4" class="slide level2">
 <h2><span class="big-par">Detección en Zonas de Cambio | Edificaciones (<em>buildings</em>)</span></h2>
 <div class="center">
-<p><strong>count_segmented_objects -&gt; Conteo y cobertura de polígonos</strong> <img data-src="imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_building__confidence_0_1__counts_coverage.png" class="fragment fade-in-then-out" style="width:85.0%"></p>
+<p><strong>count_segmented_objects → Conteo y cobertura de polígonos</strong> <img data-src="imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_building__confidence_0_1__counts_coverage.png" class="fragment fade-in-then-out" style="width:85.0%"></p>
 </div>
 <!-- ## [Detección en Zonas de Cambio | Edificaciones (*buildings*)]{.big-par}
 
@@ -536,7 +536,7 @@ Step 1 — run_segmentation (prompt = "road")
 <section id="detección-en-zonas-de-cambio-calles-y-caminos-roads-4" class="slide level2">
 <h2><span class="big-par">Detección en Zonas de Cambio | Calles y caminos (<em>roads</em>)</span></h2>
 <div class="center">
-<p><strong>count_segmented_objects -&gt; Conteo y cobertura de polígonos</strong> <img data-src="imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_road__confidence_0_15__counts_coverage.png" class="fragment fade-in-then-out" style="width:85.0%"></p>
+<p><strong>count_segmented_objects → Conteo y cobertura de polígonos</strong> <img data-src="imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_road__confidence_0_15__counts_coverage.png" class="fragment fade-in-then-out" style="width:85.0%"></p>
 </div>
 <!-- ## [Detección en Zonas de Cambio | Calles y caminos (*roads*)]{.big-par}
 
@@ -561,8 +561,8 @@ Step 1 — run_segmentation (prompt = "road")
 
 ::: -->
 </section>
-<section id="ejs.-in-luc-cluster-12-crecim.-sostenido-edificaciones" class="slide level2">
-<h2><span class="big-par">Ejs. in-LUC | Cluster 12 (crecim. sostenido) | Edificaciones</span></h2>
+<section id="ejs.-cluster-12-crecimiento-sostenido-edificaciones" class="slide level2">
+<h2><span class="big-par">Ejs. | Cluster 12 (crecimiento sostenido) | Edificaciones</span></h2>
 <div class="center">
 <p><strong>t = 202304 → 202502</strong></p>
 </div>
@@ -575,8 +575,8 @@ Step 1 — run_segmentation (prompt = "road")
 </div>
 </div>
 </section>
-<section id="ejs.-in-luc-cluster-06-crecim.-sostenido-edificaciones" class="slide level2">
-<h2><span class="big-par">Ejs. in-LUC | Cluster 06 (crecim. sostenido) | Edificaciones</span></h2>
+<section id="ejs.-cluster-06-crecimiento-reciente-edificaciones" class="slide level2">
+<h2><span class="big-par">Ejs. | Cluster 06 (crecimiento reciente) | Edificaciones</span></h2>
 <div class="center">
 <p><strong>t = 202304 → 202403 → 202412 → 202502</strong></p>
 </div>
@@ -595,8 +595,8 @@ Step 1 — run_segmentation (prompt = "road")
 </div>
 </div>
 </section>
-<section id="ejs.-in-luc-cluster-02-crecim.-reciente-edificaciones" class="slide level2">
-<h2><span class="big-par">Ejs. in-LUC | Cluster 02 (crecim. reciente) | Edificaciones</span></h2>
+<section id="ejs.-cluster-02-crecimiento-reciente-edificaciones" class="slide level2">
+<h2><span class="big-par">Ejs. | Cluster 02 (crecimiento reciente) | Edificaciones</span></h2>
 <div class="center">
 <p><strong>t = 202304 → 202403 → 202412 → 202502</strong></p>
 </div>
@@ -615,8 +615,8 @@ Step 1 — run_segmentation (prompt = "road")
 </div>
 </div>
 </section>
-<section id="ejs.-in-luc-cluster-03-decrecim.-edificaciones" class="slide level2">
-<h2><span class="big-par">Ejs. in-LUC | Cluster 03 (decrecim.) | Edificaciones</span></h2>
+<section id="ejs.-cluster-03-decrecimiento-o-pérdida-edificaciones" class="slide level2">
+<h2><span class="big-par">Ejs. | Cluster 03 (decrecimiento o pérdida) | Edificaciones</span></h2>
 <div class="center">
 <p><strong>t = 202304 → 202403 → 202412 → 202502</strong></p>
 </div>
@@ -635,8 +635,8 @@ Step 1 — run_segmentation (prompt = "road")
 </div>
 </div>
 </section>
-<section id="ejs.-in-luc-cluster-12-crecim.-sostenido-calles-y-caminos" class="slide level2">
-<h2><span class="big-par">Ejs. in-LUC | Cluster 12 (crecim. sostenido) | Calles y caminos</span></h2>
+<section id="ejs.-cluster-12-crecimiento-sostenido-calles-y-caminos" class="slide level2">
+<h2><span class="big-par">Ejs. | Cluster 12 (crecimiento sostenido) | Calles y caminos</span></h2>
 <div class="center">
 <p><strong>t = 202304 → 202502</strong></p>
 </div>
@@ -649,8 +649,8 @@ Step 1 — run_segmentation (prompt = "road")
 </div>
 </div>
 </section>
-<section id="ejs.-in-luc-cluster-06-crecim.-sostenido-calles-y-caminos" class="slide level2">
-<h2><span class="big-par">Ejs. in-LUC | Cluster 06 (crecim. sostenido) | Calles y caminos</span></h2>
+<section id="ejs.-cluster-06-crecimiento-reciente-calles-y-caminos" class="slide level2">
+<h2><span class="big-par">Ejs. | Cluster 06 (crecimiento reciente) | Calles y caminos</span></h2>
 <div class="center">
 <p><strong>t = 202304 → 202403 → 202412 → 202502</strong></p>
 </div>
@@ -669,8 +669,8 @@ Step 1 — run_segmentation (prompt = "road")
 </div>
 </div>
 </section>
-<section id="ejs.-in-luc-cluster-02-crecim.-reciente-calles-y-caminos" class="slide level2">
-<h2><span class="big-par">Ejs. in-LUC | Cluster 02 (crecim. reciente) | Calles y caminos</span></h2>
+<section id="ejs.-cluster-02-crecimiento-reciente-calles-y-caminos" class="slide level2">
+<h2><span class="big-par">Ejs. | Cluster 02 (crecimiento reciente) | Calles y caminos</span></h2>
 <div class="center">
 <p><strong>t = 202304 → 202403 → 202412 → 202502</strong></p>
 </div>
@@ -689,8 +689,8 @@ Step 1 — run_segmentation (prompt = "road")
 </div>
 </div>
 </section>
-<section id="ejs.-in-luc-cluster-03-decrecim.-calles-y-caminos" class="slide level2">
-<h2><span class="big-par">Ejs. in-LUC | Cluster 03 (decrecim.) | Calles y caminos</span></h2>
+<section id="ejs.-cluster-03-decrecimiento-o-pérdida-calles-y-caminos" class="slide level2">
+<h2><span class="big-par">Ejs. | Cluster 03 (decrecimiento o pérdida) | Calles y caminos</span></h2>
 <div class="center">
 <p><strong>t = 202304 → 202403 → 202412 → 202502</strong></p>
 </div>

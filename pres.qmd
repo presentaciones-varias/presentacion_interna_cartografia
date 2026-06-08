@@ -36,35 +36,18 @@ format:
 <!-- ::: {.incremental} -->
 
 ::: {.medium-par}
-
 - Motivación
-
-- Etapa 1: Detección de Cambios
-
-  - Dentro del LUC (in-LUC)
-
-  - *Fuera del LUC (out-LUC)*
-
-- Etapa 2: Detección en Zonas de Cambio
-
+- Etapa 1: Detección de Cambios.
+  - Procesamiento de Dynamic World.
+  - Clasificación de Clusters.
+- Etapa 2: Detección en Zonas de Cambio.
   - Detección de grilla rHEALPix.
-
   - Detección de edificaciones (*buildings*).
-
   - Detección de calles y caminos (*roads*).
-
 - Ejemplos in-LUC
-
   - Cluster 12 (crecimiento nuevo sostenido)
-
   - Cluster 6 (crecimiento nuevo reciente)
-
   - Cluster 2 (crecimiento nuevo reciente)
-
-- *Ejemplos out-LUC*
-
-  - ...
-
 :::
 
 
@@ -75,7 +58,7 @@ format:
 - Avanzar hacia una detección automática de cambios en la cartografía INE.
   - Contexto: actualización planimétrica de la cartografía INE (Desafío público ANID 2022).
   - Uso eficiente de recursos humanos y disminución en costos de producción para la institución. 
-- Hacer uso del estado del arte en visión computacional, modelos deep learning y de detección + segmentación de objetos y de su aplicabilidad en imágenes satelitales.
+- Aprovechar el estado del arte en visión computacional y deep learning, incluyendo modelos de detección y segmentación, para el análisis de imágenes satelitales.
 :::
 
 . . .
@@ -101,19 +84,21 @@ format:
 ## [Motivación]{.big-par}
 
 ::: {.incremental .medium-par}
-- Flujo propuesto: Detección de Cambios + Detección en Zonas de Cambio
-- Detección de Cambios: basado en dataset de Uso y Cobertura de Suelo (Dynamic World V1).
+- Flujo propuesto en dos etapas: **Detección de Cambios → Detección en Zonas de Cambio**.
+- **Detección de Cambios:** basado en dataset de Uso y Cobertura de Suelo (Dynamic World V1).
   - Detectar áreas que han sufrido cambios en zonas urbanas en la cartografía INE.
   - Clasificar cambios detectados en diversos fenómenos. Ej: crecimiento sostenido, decrecimiento, etc.
-- Detección en Zonas de Cambio: zoom en áreas de cambios detectados en etapa anterior.
+- **Detección en Zonas de Cambio:** zoom en áreas de cambios detectados en etapa anterior.
   - Aplicar un modelo de detectión y segmentación de objetos (SAM3) para detectar infraestructura relevante para la actualización de la cartografía INE.
   - Georeferenciar infraestructura detectada (edificaciones y calles / caminos), como insumo para la actualización de la cartografía INE. 
+- Resultados preliminares en esta presentación: Gran Concepción (Dentro del LUC).
+  - Procesamiento en curso para otras regiones: Iquique, Valparaíso, Santiago. 
 :::
 
 
 
 
-## [Detección de Cambios]{.big-par}
+## [Detección de Cambios | Procesamiento de Dynamic World]{.big-par}
 
 :::: {layout-ncol=2}
 
@@ -134,7 +119,7 @@ Cambios detectados
 
 ::::
 
-## [Detección de Cambios]{.big-par}
+## [Detección de Cambios | Clasificación de Clusters]{.big-par}
 
 ::: {.incremental .medium-par}
 
@@ -159,7 +144,7 @@ Clasificación basada en:
 :::
 
 
-## [Detección de Cambios]{.big-par}
+## [Detección de Cambios | Clusters por fenómeno]{.big-par}
 
 <!-- ::: {.center}
 ![](imagenes/data/reg_08_01.png){width="100%"}
@@ -332,7 +317,7 @@ Step 1 — run_segmentation (prompt = "building")
 ## [Detección en Zonas de Cambio | Edificaciones (*buildings*)]{.big-par}
 
 ::: {.center}
-**count_segmented_objects -> Conteo y cobertura de polígonos** 
+**count_segmented_objects → Conteo y cobertura de polígonos** 
 ![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_building__confidence_0_1__counts_coverage.png){.fragment .fade-in-then-out width="85%"}
 :::
 
@@ -459,7 +444,7 @@ Step 1 — run_segmentation (prompt = "road")
 ## [Detección en Zonas de Cambio | Calles y caminos (*roads*)]{.big-par}
 
 ::: {.center}
-**count_segmented_objects -> Conteo y cobertura de polígonos** 
+**count_segmented_objects → Conteo y cobertura de polígonos** 
 ![](imagenes/data/cluster_12/P67536523705__20230416T0000__prompt_road__confidence_0_15__counts_coverage.png){.fragment .fade-in-then-out width="85%"}
 :::
 
@@ -493,7 +478,7 @@ Step 1 — run_segmentation (prompt = "road")
 
 
 
-## [Ejs. in-LUC | Cluster 12 (crecim. sostenido) | Edificaciones]{.big-par}
+## [Ejs. | Cluster 12 (crecimiento sostenido) | Edificaciones]{.big-par}
 
 
 ::: {.center}
@@ -515,7 +500,7 @@ Step 1 — run_segmentation (prompt = "road")
 :::
 
 
-## [Ejs. in-LUC | Cluster 06 (crecim. sostenido) | Edificaciones]{.big-par}
+## [Ejs. | Cluster 06 (crecimiento reciente) | Edificaciones]{.big-par}
 
 ::: {.center}
 **t = 202304 → 202403 → 202412 → 202502** 
@@ -546,7 +531,7 @@ Step 1 — run_segmentation (prompt = "road")
 :::
 
 
-## [Ejs. in-LUC | Cluster 02 (crecim. reciente) | Edificaciones]{.big-par}
+## [Ejs. | Cluster 02 (crecimiento reciente) | Edificaciones]{.big-par}
 
 ::: {.center}
 **t = 202304 → 202403 → 202412 → 202502** 
@@ -578,7 +563,7 @@ Step 1 — run_segmentation (prompt = "road")
 
 
 
-## [Ejs. in-LUC | Cluster 03 (decrecim.) | Edificaciones]{.big-par}
+## [Ejs. | Cluster 03 (decrecimiento o pérdida) | Edificaciones]{.big-par}
 
 ::: {.center}
 **t = 202304 → 202403 → 202412 → 202502** 
@@ -610,7 +595,7 @@ Step 1 — run_segmentation (prompt = "road")
 
 
 
-## [Ejs. in-LUC | Cluster 12 (crecim. sostenido) | Calles y caminos]{.big-par}
+## [Ejs. | Cluster 12 (crecimiento sostenido) | Calles y caminos]{.big-par}
 
 ::: {.center}
 **t = 202304 → 202502** 
@@ -631,7 +616,7 @@ Step 1 — run_segmentation (prompt = "road")
 :::
 
 
-## [Ejs. in-LUC | Cluster 06 (crecim. sostenido) | Calles y caminos]{.big-par}
+## [Ejs. | Cluster 06 (crecimiento reciente) | Calles y caminos]{.big-par}
 
 ::: {.center}
 **t = 202304 → 202403 → 202412 → 202502** 
@@ -662,7 +647,7 @@ Step 1 — run_segmentation (prompt = "road")
 :::
 
 
-## [Ejs. in-LUC | Cluster 02 (crecim. reciente) | Calles y caminos]{.big-par}
+## [Ejs. | Cluster 02 (crecimiento reciente) | Calles y caminos]{.big-par}
 
 ::: {.center}
 **t = 202304 → 202403 → 202412 → 202502** 
@@ -694,7 +679,7 @@ Step 1 — run_segmentation (prompt = "road")
 
 
 
-## [Ejs. in-LUC | Cluster 03 (decrecim.) | Calles y caminos]{.big-par}
+## [Ejs. | Cluster 03 (decrecimiento o pérdida) | Calles y caminos]{.big-par}
 
 ::: {.center}
 **t = 202304 → 202403 → 202412 → 202502** 
