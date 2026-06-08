@@ -99,6 +99,24 @@ format:
 :::
 
 
+## [Detección de Cambios | Procesamiento de Dynamic World]{.big-par}
+
+:::: {layout-ncol=2}
+
+:::{.fragment .medium-par .center} 
+ 
+![](imagenes/data/deteccion_cambios/dynamic_world.png){ width="90%"}
+
+:::
+
+:::{.fragment .medium-par .center} 
+[Grilla Healpix]{.medium-par}
+
+![](imagenes/data/deteccion_cambios/grilla_healpix.png)
+
+:::
+
+::::
 
 
 ## [Detección de Cambios | Procesamiento de Dynamic World]{.big-par}
@@ -107,14 +125,15 @@ format:
 
 :::{.fragment .medium-par .center} 
 
-Probabilidades built 2025 
+[Probabilidades built 2025]{.small-par}
  
 ![](imagenes/data/deteccion_cambios/probs_R08.png){ width="90%"}
 
 :::
 
 :::{.fragment .medium-par .center} 
-Cambios detectados
+
+[Detección de cambios de construcción]{.small-par}
 
 ![](imagenes/data/deteccion_cambios/clusters_R08.png){width="110%"}
 
@@ -122,7 +141,7 @@ Cambios detectados
 
 ::::
 
-## [Detección de Cambios | Clasificación de Clusters]{.big-par}
+## [Detección de Cambios | Clasificación de celdas]{.big-par}
 
 ::: {.incremental .medium-par}
 
@@ -139,12 +158,58 @@ Clasificación basada en:
 
 | Fenómeno                      | Persistencia típica |
 | ----------------------------- | ------------------- | 
-| Crecimiento nuevo sostenido   | 000001111  | 
-| Crecimiento nuevo reciente    | 000000011  | 
+| Crecimiento sostenido   | 000001111  | 
+| Crecimiento reciente    | 000000011  | 
 | Crecimiento en zona existente | 111111111  | 
-| Pérdida de construcción       | 111111110  | 
+| Decrecimiento       | 111111110  | 
 
 :::
+
+
+## [Detección de Cambios | Generación de clusters]{.big-par}
+
+
+:::{.center} 
+![](imagenes/data/deteccion_cambios/clusters0.png){ width="40%"}
+:::
+
+:::: {layout-ncol=2}
+
+:::{.fragment .center} 
+
+[Generación de buffer 52m]{.small-par}
+
+![](imagenes/data/deteccion_cambios/clusters1.png){ width="15%"}
+:::
+
+:::{.fragment .small-par .center} 
+
+[Identificación de pares de celdas que se intersectan]{.small-par}
+
+![](imagenes/data/deteccion_cambios/clusters2.png){ width="15%"}
+:::
+
+::::
+
+## [Detección de Cambios | Generación de clusters]{.big-par}
+
+:::: {layout-ncol=2}
+
+:::{.fragment .center} 
+[Formación de clusters]{.small-par}
+
+![](imagenes/data/deteccion_cambios/clusters3.png){.fade-in-then-out width="30%"}
+:::
+
+:::{.fragment .center} 
+[Output final con buffer para rellenar vacíos]{.small-par}
+
+![](imagenes/data/deteccion_cambios/clusters4.png){.fade-in-then-out width="30%"}
+
+:::
+
+::::
+
 
 
 ## [Detección de Cambios | Clusters por fenómeno]{.big-par}
@@ -820,8 +885,7 @@ Step 1 — run_segmentation (prompt = "road")
 ::: {.incremental .medium-par}
 - Consolidación de edificaciones y calles / caminos.
   - Limpieza final de polígonos detectados agrupados a nivel de cluster, aplicando filtros similares a los usados en la detección para capturas individuales. 
-- Recuperación de cartografía desde calles / caminos consolidados.
-  - ...
+- Reconstrucción de cartografía vial mediante líneas centrales y análisis de conectividad.
 - Completar integración de las dos etapas de procesamiento en un flujo automático único: 
   - Detección de Cambios → Detección en Zonas de Cambio.
 - Completar procesamiento para otras regiones dentro del LUC: Iquique, Valparaíso, Santiago. 
