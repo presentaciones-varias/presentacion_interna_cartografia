@@ -152,16 +152,18 @@
 </ul></li>
 <li>Etapa 2: Detección en Zonas de Cambio.
 <ul>
+<li>Captura de imágenes de alta resolución (HR).</li>
 <li>Detección de grilla rHEALPix.</li>
 <li>Detección de edificaciones (<em>buildings</em>).</li>
 <li>Detección de calles y caminos (<em>roads</em>).</li>
 </ul></li>
-<li>Ejemplos in-LUC
+<li>Ejemplos.
 <ul>
 <li>Cluster 12 (crecimiento nuevo sostenido)</li>
 <li>Cluster 6 (crecimiento nuevo reciente)</li>
 <li>Cluster 2 (crecimiento nuevo reciente)</li>
 </ul></li>
+<li>Trabajo futuro.</li>
 </ul>
 </div>
 </section>
@@ -202,9 +204,10 @@
 <li class="fragment">Aplicar un modelo de detectión y segmentación de objetos (SAM3) para detectar infraestructura relevante para la actualización de la cartografía INE.</li>
 <li class="fragment">Georeferenciar infraestructura detectada (edificaciones y calles / caminos), como insumo para la actualización de la cartografía INE.</li>
 </ul></li>
-<li class="fragment">Resultados preliminares en esta presentación: Gran Concepción (Dentro del LUC).
+<li class="fragment">Producto Mínimo Viable (MVP): Gran Concepción (Dentro del LUC).
 <ul>
-<li class="fragment">Procesamiento en curso para otras regiones: Iquique, Valparaíso, Santiago.</li>
+<li class="fragment">Procesamiento en curso para otras regiones dentro del LUC: Iquique, Valparaíso, Santiago.</li>
+<li class="fragment">Extensión a cambios en cartografía fuera del LUC.</li>
 </ul></li>
 </ul>
 </div>
@@ -282,6 +285,39 @@
 <p><img data-src="imagenes/data/reg_08_06.png" class="fragment fade-in-then-out" style="width:100.0%"></p>
 </div>
 </section>
+<section id="detección-en-zonas-de-cambio-captura-de-imágenes-hr" class="slide level2">
+<h2><span class="big-par">Detección en Zonas de Cambio | Captura de imágenes HR</span></h2>
+<div class="medium-par">
+<ul>
+<li class="fragment">Se carga y recorre cada cluster (grilla rHEALPix) de forma automática.</li>
+<li class="fragment">En cada iteración se captura la vista centrada en una celda, con un zoom seleccionado (250m).
+<ul>
+<li class="fragment">Esto se repite recorriendo el archivo histórico de imágenes de la vista, para un intervalo de tiempo determinado (t &gt; 202301).</li>
+</ul></li>
+</ul>
+</div>
+<div class="center">
+<p><img data-src="imagenes/data/deteccion_rhealpix/image__google_earth_pro__rhealpix_cell_P67536475302.png" style="width:55.0%"></p>
+</div>
+<div class="columns">
+<div class="column" style="width:45%;">
+<p><span class="center"><img src="imagenes/data/deteccion_rhealpix/image__zoom_range_250m__rhealpix_cell_P67536475302__01.png" width="100%"></span></p>
+</div><div class="column" style="width:45%;">
+<p><span class="center"><img src="imagenes/data/deteccion_rhealpix/image__zoom_range_250m__rhealpix_cell_P67536475372__01.png" width="100%"></span></p>
+</div></div>
+<!-- ## [Detección en Zonas de Cambio | Grilla rHEALPix]{.big-par}
+
+:::: {.columns}
+::: {.column .medium-par width="45%"}
+- Detección de grilla rHEALPix.
+  - **detect_cells**: se encuentran líneas rojas de grilla en la imagen y se agrupan detecciones ~duplicadas. Retorna celdas como rectángulos en coordinadas de píxel. 
+  - **correct_cells**: revisa que lados de celdas candidatas estén cubiertos por píxeles rojos. Luego subdivide celdas que han sido unidas incorrectamente.
+:::
+::: {.column width="45%"}
+[<img src="imagenes/data/deteccion_rhealpix/image__zoom_range_250m__rhealpix_cell_P67536475302__01.png" width="100%"/>]{.center} 
+:::
+:::: -->
+</section>
 <section id="detección-en-zonas-de-cambio-grilla-rhealpix" class="slide level2">
 <h2><span class="big-par">Detección en Zonas de Cambio | Grilla rHEALPix</span></h2>
 <div class="medium-par">
@@ -289,17 +325,60 @@
 <li class="fragment">Detección de grilla rHEALPix.
 <ul>
 <li class="fragment"><strong>detect_cells</strong>: se encuentran líneas rojas de grilla en la imagen y se agrupan detecciones ~duplicadas. Retorna celdas como rectángulos en coordinadas de píxel.</li>
-<li class="fragment"><strong>correct_cells</strong>: revisa que lados de celdas candidatas estén cubiertos por píxeles rojos. Luego subdivide celdas que han sido unidas incorrectamente.</li>
+<li class="fragment"><strong>correct_cells</strong>: revisa que lados de celdas candidatas estén correctamente cubiertos por píxeles rojos y subdivide celdas que han sido unidas incorrectamente (terrenos con relieve).</li>
+</ul></li>
+</ul>
+</div>
+<div class="center">
+<p><img data-src="imagenes/data/deteccion_rhealpix/image__zoom_range_250m__rhealpix_cell_P67536475302__01.png" style="width:55.0%"></p>
+</div>
+<!-- [<img src="imagenes/data/deteccion_rhealpix/image__zoom_range_250m__rhealpix_cell_P67536475302__01.png" width="100%"/>]{.center}  -->
+<!-- ::: {.r-stack fragment-index=2 .center}
+
+:::: {.fragment}
+![](imagenes/data/cluster_12/P67536523705__20250221T0000__prompt_building__confidence_0_1__detected_anchor_cell.png){width="85%"}
+![](imagenes/data/cluster_12/P67536523705__20250221T0000__prompt_building__confidence_0_1__cell_codes.png){width="60%"}
+::::
+
+::: -->
+</section>
+<section id="detección-en-zonas-de-cambio-grilla-rhealpix-1" class="slide level2">
+<h2><span class="big-par">Detección en Zonas de Cambio | Grilla rHEALPix</span></h2>
+<div class="medium-par">
+<ul>
+<li class="fragment">Detección de grilla rHEALPix.
+<ul>
 <li class="fragment"><strong>detect_anchor_cell</strong>: identifica índice de celda central marcada en mapa, con código conocido.</li>
+</ul></li>
+</ul>
+</div>
+<div class="center">
+<p><img data-src="imagenes/data/deteccion_rhealpix/P67536475302__20250221T0000__prompt_road__confidence_0_15__detected_anchor_cell_01.png" style="width:55.0%"> <img data-src="imagenes/data/deteccion_rhealpix/P67536475302__20250221T0000__prompt_road__confidence_0_15__detected_anchor_cell_02.png" style="width:55.0%"></p>
+</div>
+</section>
+<section id="detección-en-zonas-de-cambio-grilla-rhealpix-2" class="slide level2">
+<h2><span class="big-par">Detección en Zonas de Cambio | Grilla rHEALPix</span></h2>
+<div class="medium-par">
+<ul>
+<li class="fragment">Detección de grilla rHEALPix.
+<ul>
 <li class="fragment"><strong>map_cells_to_rhealpix</strong>: utiliza información de celda central como referencia para mapear celdas detectadas a grilla rHEALPix real.</li>
 </ul></li>
 </ul>
 </div>
-<div class="r-stack center" data-fragment-index="2">
-<div class="fragment">
-<p><img data-src="imagenes/data/cluster_12/P67536523705__20250221T0000__prompt_building__confidence_0_1__detected_anchor_cell.png" style="width:85.0%"> <img data-src="imagenes/data/cluster_12/P67536523705__20250221T0000__prompt_building__confidence_0_1__cell_codes.png" style="width:60.0%"></p>
+<div class="center">
+<p><img data-src="imagenes/data/deteccion_rhealpix/P67536475302__20250221T0000__prompt_road__confidence_0_15__cell_codes.png" style="width:55.0%"></p>
 </div>
-</div>
+<!-- ## [Detección en Zonas de Cambio | Grilla rHEALPix]{.big-par}
+
+::: {.r-stack fragment-index=2 .center}
+
+:::: {.fragment}
+![](imagenes/data/cluster_12/P67536523705__20250221T0000__prompt_building__confidence_0_1__detected_anchor_cell.png){width="85%"}
+![](imagenes/data/cluster_12/P67536523705__20250221T0000__prompt_building__confidence_0_1__cell_codes.png){width="60%"}
+::::
+
+::: -->
 <!-- ## [Detección en Zonas de Cambio | Flujo general]{.big-par}
 
 ::: {.incremental .medium-par}
@@ -724,12 +803,33 @@ Step 1 — run_segmentation (prompt = "road")
 :::
 
 :::: -->
+</section>
+<section id="trabajo-futuro" class="slide level2">
+<h2><span class="big-par">Trabajo futuro</span></h2>
+<div class="medium-par">
+<ul>
+<li class="fragment">Consolidación de edificaciones y calles / caminos.
+<ul>
+<li class="fragment">Limpieza final de polígonos detectados agrupados a nivel de cluster, aplicando filtros similares a los usados en la detección para capturas individuales.</li>
+</ul></li>
+<li class="fragment">Recuperación de cartografía desde calles / caminos consolidados.
+<ul>
+<li class="fragment">…</li>
+</ul></li>
+<li class="fragment">Completar integración de las dos etapas de procesamiento en un flujo automático único:
+<ul>
+<li class="fragment">Detección de Cambios → Detección en Zonas de Cambio.</li>
+</ul></li>
+<li class="fragment">Completar procesamiento para otras regiones dentro del LUC: Iquique, Valparaíso, Santiago.</li>
+<li class="fragment">Extender procesamiento para cambios detectados fuera del LUC.</li>
+</ul>
+</div>
 </section></section>
 <section>
 <section id="section-1" class="title-slide slide level1 center">
 <h1></h1>
 <p><span class="center"><img src="imagenes/logo_portada2.png" width="20%"></span></p>
-<p><span class="big-par center-justified"><strong>Deep Learning para Detección de Cambios en Cartografía INE</strong></span> <span class="medium-par.center-justified"><strong>Ciencia de Datos</strong></span></p>
+<p><span class="big-par center-justified"><strong>Flujo Automático para la Detección de Cambios en Cartografía INE</strong></span> <span class="medium-par.center-justified"><strong>Ciencia de Datos</strong></span></p>
 <p><span class="big-par center-justified"><strong>Junio 2026</strong></span></p>
 <p><span class="linea-superior"></span> <span class="linea-inferior"></span></p>
 </section>
