@@ -47,8 +47,9 @@ format:
   - Detección de calles y caminos (*roads*).
 - Ejemplos.
   - Cluster 12 (crecimiento nuevo sostenido)
-  - Cluster 6 (crecimiento nuevo reciente)
-  - Cluster 2 (crecimiento nuevo reciente)
+  - Cluster 06 (crecimiento nuevo reciente)
+  - Cluster 02 (crecimiento nuevo reciente)
+  - Cluster 03 (decrecimiento o pérdida)
 - Trabajo futuro.
 :::
 
@@ -58,7 +59,7 @@ format:
 
 ::: {.incremental .medium-par}
 - Avanzar hacia una detección automática de cambios en la cartografía INE.
-  - Contexto: actualización planimétrica de la cartografía INE (Desafío público ANID 2022).
+  - Contexto: Actualización planimétrica de la cartografía INE (Desafío público ANID 2022).
   - Uso eficiente de recursos humanos y disminución en costos de producción para la institución. 
 - Aprovechar el estado del arte en visión computacional y deep learning, incluyendo modelos de detección y segmentación, para el análisis de imágenes satelitales.
 :::
@@ -90,7 +91,7 @@ format:
 - **Detección de Cambios:** basado en dataset de Uso y Cobertura de Suelo (Dynamic World V1).
   - Detectar áreas que han sufrido cambios en zonas urbanas en la cartografía INE.
   - Clasificar cambios detectados en diversos fenómenos. Ej: crecimiento sostenido, decrecimiento, etc.
-- **Detección en Zonas de Cambio:** zoom en áreas de cambios detectados en etapa anterior.
+- **Detección en Zonas de Cambio:** foco en áreas de cambios detectados en etapa anterior.
   - Aplicar un modelo de detectión y segmentación de objetos (SAM3) para detectar infraestructura relevante para la actualización de la cartografía INE.
   - Georeferenciar infraestructura detectada (edificaciones y calles / caminos), como insumo para la actualización de la cartografía INE. 
 - Producto Mínimo Viable (MVP): Gran Concepción (Dentro del LUC).
@@ -886,10 +887,10 @@ Step 1 — run_segmentation (prompt = "road")
 - Consolidación de edificaciones y calles / caminos.
   - Limpieza final de polígonos detectados agrupados a nivel de cluster, aplicando filtros similares a los usados en la detección para capturas individuales. 
 - Reconstrucción de cartografía vial mediante líneas centrales y análisis de conectividad.
-- Completar integración de las dos etapas de procesamiento en un flujo automático único: 
+- Integración de las dos etapas de procesamiento en un flujo automático único: 
   - Detección de Cambios → Detección en Zonas de Cambio.
-- Completar procesamiento para otras regiones dentro del LUC: Iquique, Valparaíso, Santiago. 
-- Extender procesamiento para cambios detectados fuera del LUC.
+- Procesamiento para otras regiones dentro del LUC: Iquique, Valparaíso, Santiago. 
+- Extensión de procesamiento para cambios detectados fuera del LUC.
 :::
 
 
